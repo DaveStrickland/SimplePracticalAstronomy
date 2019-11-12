@@ -8,9 +8,10 @@
 ## Build
 
 ```bash
+# Assumes you're in the SimplePracticalAstronomy directory.
 cd build
 
-# Create makefil
+# Create Makefile
 cmake ..
 
 # Build
