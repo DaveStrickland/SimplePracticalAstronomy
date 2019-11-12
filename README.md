@@ -29,3 +29,14 @@ The @ref pawyc_sections table contains a list of the sections defined
 in Practical Astronomy With Your Calculator and their implementation 
 status in Simple Practical Astronomy.
 
+# Dependencies
+
+This library requires the user to have a working C++11 compiler. At present,
+and by design, no external dependencies (e.g. boost) are required.
+
+# Build And Test
+
+Refer to the [build instructions](./build/BUILD.md) on how to build the 
+library and its tests. Development and testing has only been done on 
+Fedora Linux and OSX 10.11 systems, so it whether it works on other *nix 
+systems is unknown although there is no reason to expect it to fail.
