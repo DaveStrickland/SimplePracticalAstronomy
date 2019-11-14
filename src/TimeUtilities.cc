@@ -229,5 +229,84 @@ void calculateHoursMinutesAndSeconds(double aDecimalHours,
     return;
 }
 
+std::ostream& operator<<(std::ostream& os, WeekDays& aWeekDay)
+{
+    // Simple but ugly implementation.
+    switch (aWeekDay)
+    {
+        case SUN:
+            os << "Sun";
+            break;
+        case MON:
+            os << "Mon";
+            break;
+        case TUE:
+            os << "Tue";
+            break;
+        case WED:
+            os << "Wed";
+            break;
+        case THU:
+            os << "Thu";
+            break;
+        case FRI:
+            os << "Fri";
+            break;
+        case SAT:
+            os << "Sat";
+            break;
+        default:
+            os << "Invalid WeekDay";
+            break;
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, Months& aMonth)
+{   
+    // Simple but ugly implementation.
+    switch (aMonth)
+    {
+        case JAN:
+            os << "Jan";
+            break;
+        case FEB:
+            os << "Feb";
+            break;
+        case MAR:
+            os << "Mar";
+            break;
+        case APR:
+            os << "Apr";
+            break;
+        case MAY:
+            os << "May";
+            break;
+        case JUN:
+            os << "Jun";
+            break;
+        case JUL:
+            os << "Jul";
+            break;
+        case AUG:
+            os << "Aug";
+            break;
+        case SEP:
+            os << "Sep";
+            break;
+        case OCT:
+            os << "Oct";
+            break;
+        case NOV:
+            os << "Nov";
+            break;
+        case DEC:
+            os << "Dec";
+            break;
+        default:
+            os << "Invalid Month";
+            break;
+    }
+}
+
 } // end namespace TIME_UTIL
 } /* namespace SPA */

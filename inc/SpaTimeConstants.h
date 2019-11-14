@@ -192,7 +192,7 @@ constexpr std::array<int, 12> SPA_DAYSTART_LEAPYEAR = {0, 31, 60, 91, 121, 152, 
  */
 enum Months
 {
-    JAN = 1,//!< January
+    JAN = 1,//!< January. Note January is one.
     FEB,    //!< February
     MAR,    //!< March
     APR,    //!< April
@@ -207,12 +207,12 @@ enum Months
 };
 
 /**
- * @brief Named days of the week enumeration, starting at 1 with Monday
+ * @brief Named days of the week enumeration, starting at 0 with Sunday
  * @ingroup group_time
  */
 enum WeekDays
 {
-    SUN,    //!< Sunday
+    SUN,    //!< Sunday. Note that Sunday is zero.
     MON,    //!< Monday
     TUE,    //!< Tuesday
     WED,    //!< Wednesday

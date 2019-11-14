@@ -452,6 +452,12 @@ bool TimeUtilities_TestClass::hoursMinutesSecondsMatch(int anHoursA,
     return true;
 }
 
+void TimeUtilities_TestClass::testTimeEnumerationOstream()
+{
+    FAILM("Not yet implemented.");
+    return;
+}
+
 
 } /* namespace TEST */
 } /* namespace SPA */

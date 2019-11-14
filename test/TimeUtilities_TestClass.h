@@ -98,6 +98,12 @@ class TimeUtilities_TestClass
         void testQuotientAndRemainder();
 
         /**
+         * Tests ostream operators for time-related enumerations
+         * produce the expected string output.
+         */
+        void testTimeEnumerationOstream();
+
+        /**
          * @brief Utility function that returns true if two
          *   times, A and B, have matching hours, minutes and seconds.
          * 
@@ -138,6 +144,7 @@ class TimeUtilities_TestClass
             aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testCalculateDayInTheWeek);
             aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testCalculateDecimalHours);
             aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testCalculateHoursMinutesAndSeconds);
+            aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testTimeEnumerationOstream);
         }
     private:
 };

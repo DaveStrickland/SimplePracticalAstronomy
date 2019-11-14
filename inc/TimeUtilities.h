@@ -28,6 +28,8 @@
 #ifndef INC_TIMEUTILITIES_H_
 #define INC_TIMEUTILITIES_H_
 
+#include <iosfwd> // Forward declarations of iostream.
+
 #include "SpaTimeConstants.h"
 
 namespace SPA
@@ -263,6 +265,21 @@ void quotientAndRemainder(int aDividend,
                           int& aQuotient,
                           int& aRemainder);
 
+/**
+ * Ostream operator for WeekDays enumeration.
+ * 
+ * @param[in] os Output stream to modify.
+ * @param[in] aWeekDay A weekday enumeration value.
+ */
+std::ostream& operator<<(std::ostream& os, WeekDays& aWeekDay);
+
+/**
+ * Ostream operator for Months enumeration.
+ * 
+ * @param[in] os Output stream to modify.
+ * @param[in] aMonth A month enumeration value.
+ */
+std::ostream& operator<<(std::ostream& os, Months& aMonth);
 
 } // end namespace TIME_UTIL
 } // end namespace SPA
