@@ -34,6 +34,8 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <map>
+#include <utility>
 
 namespace SPA
 {
@@ -194,34 +196,64 @@ void TimeUtilities_TestClass::testCalculateDayInTheWeek()
     int year = 1985;
     int month = 2;
     int day = 17;
-    WeekDays expectedWeekDay1 = TUE;
+    WeekDays expectedWeekDay1 = SUN;
     DateAndTime dt1(year, month, day);
     JulianDate jd1(dt1);
     WeekDays wd_jd1 = SPA::TIME_UTIL::calculateDayInTheWeek(jd1);
     WeekDays wd_dt1 = SPA::TIME_UTIL::calculateDayInTheWeek(dt1);
     WeekDays wd_ymd1 = SPA::TIME_UTIL::calculateDayInTheWeek(year, month, day);
 
-    ASSERT_EQUALM("1a. calculateDayInTheWeek failed with JulianDate input",
+    double expectedJulianDate = 2446113.5;
+    double tolerance = 1.0e-6;
+    ASSERT_EQUAL_DELTAM("1a. JulianDate from DateAndTime is incorrect",
+                        expectedJulianDate,
+                        jd1.getDecimalDays(),
+                        tolerance);
+    ASSERT_EQUALM("1b. calculateDayInTheWeek failed with JulianDate input",
                   static_cast<int>(expectedWeekDay1),
                   static_cast<int>(wd_jd1));
-    ASSERT_EQUALM("1b. calculateDayInTheWeek failed with DateAndTime input",
+    ASSERT_EQUALM("1c. calculateDayInTheWeek failed with DateAndTime input",
                   static_cast<int>(expectedWeekDay1),
                   static_cast<int>(wd_dt1));
-    ASSERT_EQUALM("1c. calculateDayInTheWeek failed with year/month/day input",
+    ASSERT_EQUALM("1d. calculateDayInTheWeek failed with year/month/day input",
                   static_cast<int>(expectedWeekDay1),
                   static_cast<int>(wd_ymd1));
 
     // 2. Test a full (contiguous) week.
-    // TODO
-    FAILM("2. Not yet implemented");
+    year = 1933;
+    month = 11;
+    day = 19;
+    int expectedWeekDay2 = 0; // SUN
+    for (; expectedWeekDay2 < 7; expectedWeekDay2++)
+    {
+        WeekDays wd2 = SPA::TIME_UTIL::calculateDayInTheWeek(year, month, day);
+        int intWeekDay = static_cast<int>(wd2);
+        if (expectedWeekDay2 != intWeekDay)
+        {
+            std::ostringstream ss;
+            ss << "For " << year << "-" << month << "-" << day
+               << " calculateDayInTheWeek returns " << wd2
+               << " instead of " << static_cast<WeekDays>(expectedWeekDay2);
+            FAILM(ss.str());
+        }
+        day++;
+    }
 
-    // 3. Monday 2018-09-24 14:24:16 utc is JD=2458386.10018519
-    WeekDays expectedWeekDay3 = MON;
-    JulianDate jd3(2458386.10018519);
-    WeekDays wd_jd3 = SPA::TIME_UTIL::calculateDayInTheWeek(jd3);
-    ASSERT_EQUALM("3. calculateDayInTheWeek failed with JulianDate input",
-                   static_cast<int>(expectedWeekDay3),
-                   static_cast<int>(wd_jd3));
+    // Example 3, fractions of a day.
+    // 3a. Monday 2018-09-24 14:24:16 utc is JD=2458386.10018519
+    // 3b. Tuesday 2018-09-24 02:24:16 UTC is 2458386.60018519
+    WeekDays expectedWeekDay3a = MON;
+    JulianDate jd3a(2458386.10018519);
+    WeekDays wd_jd3a = SPA::TIME_UTIL::calculateDayInTheWeek(jd3a);
+    ASSERT_EQUALM("3a. calculateDayInTheWeek failed with JulianDate input",
+                   static_cast<int>(expectedWeekDay3a),
+                   static_cast<int>(wd_jd3a));
+    WeekDays expectedWeekDay3b = TUE;
+    JulianDate jd3b(2458386.60018519);
+    WeekDays wd_jd3b = SPA::TIME_UTIL::calculateDayInTheWeek(jd3b);
+    ASSERT_EQUALM("3b. calculateDayInTheWeek failed with JulianDate input",
+                   static_cast<int>(expectedWeekDay3b),
+                   static_cast<int>(wd_jd3b));
     return;
 }
 
@@ -454,7 +486,29 @@ bool TimeUtilities_TestClass::hoursMinutesSecondsMatch(int anHoursA,
 
 void TimeUtilities_TestClass::testTimeEnumerationOstream()
 {
-    FAILM("Not yet implemented.");
+    // Construct map of values and expected outputs.
+    std::map<SPA::WeekDays, std::string> weekDayMap;
+    weekDayMap.insert( std::make_pair(SUN, std::string("SUN")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("MON")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("TUE")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("WED")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("THU")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("FRI")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("SAT")) );
+    
+    // Iterate over map
+    std::ostringstream ss;
+    for (auto itr = weekDayMap.cbegin(); itr != weekDayMap.cend(); itr++)
+    {
+        SPA::WeekDays wd = itr->first;
+        std::string expected = itr->second;
+        ss << wd; // TODO: Find why this is mot working
+        std::string output = ss.str();
+        ss.str(std::string());
+        ASSERT_EQUALM("Stream output for input weekday is incorrect.",
+            expected,
+            output);
+    }
     return;
 }
 

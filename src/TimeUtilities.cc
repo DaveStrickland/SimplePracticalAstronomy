@@ -174,8 +174,34 @@ bool isLeapYear(int aYear)
 
 WeekDays calculateDayInTheWeek(const JulianDate& aJulianDate)
 {
-    // TODO
-    WeekDays wd = MON;
+    // Section 6 of PAWYC
+    const double unexplained_constant = 1.0; // Note: round comment below
+    double a_value = aJulianDate.getDecimalDays() + unexplained_constant;
+    
+    // Not stated in PAWYC, but for fractional days we need to round to the
+    // nearest int before dividing by the days in the week. This was the 0.5
+    // part of the 1.5, but only worked for JDs on midnight.
+    a_value = std::round(a_value);
+    
+    a_value /= double(SPA_DAYS_PER_WEEK);
+    double intPart;
+    double fracPart;
+    integerAndFraction(a_value,
+                       intPart,
+                       fracPart);
+                       
+    // The week day number is essentially the remainder of dividing
+    // aJulianDate + 1.5 by 7, which is spelled out more clearly by
+    // Meuss Section 7.
+                       
+    // See note in declaration about how rounding would give week days
+    // in the range 1 to 7, not 0 to 6 as expected. Hence we truncate.
+    double weekFrac = fracPart * SPA_DAYS_PER_WEEK;
+    int weekDayNumber = int(weekFrac + 0.5);
+    
+    // Given the way this is calculated this should be guaranteed to
+    // be in the range 0 to 6.    
+    WeekDays wd = static_cast<WeekDays>(weekDayNumber);
     return wd;
 }
 
@@ -229,7 +255,7 @@ void calculateHoursMinutesAndSeconds(double aDecimalHours,
     return;
 }
 
-std::ostream& operator<<(std::ostream& os, WeekDays& aWeekDay)
+std::ostream& operator<<(std::ostream& os, const WeekDays& aWeekDay)
 {
     // Simple but ugly implementation.
     switch (aWeekDay)
@@ -259,9 +285,10 @@ std::ostream& operator<<(std::ostream& os, WeekDays& aWeekDay)
             os << "Invalid WeekDay";
             break;
     }
+    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, Months& aMonth)
+std::ostream& operator<<(std::ostream& os, const Months& aMonth)
 {   
     // Simple but ugly implementation.
     switch (aMonth)
@@ -306,6 +333,7 @@ std::ostream& operator<<(std::ostream& os, Months& aMonth)
             os << "Invalid Month";
             break;
     }
+    return os;
 }
 
 } // end namespace TIME_UTIL

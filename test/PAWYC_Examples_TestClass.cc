@@ -176,7 +176,36 @@ void PAWYC_Examples_TestClass::example5_JulianDateToCalendarDate()
 
 void PAWYC_Examples_TestClass::example6_DayOfWeek()
 {
-    FAILM("Not yet implemented");
+    // This is a much simpler version of the better tests in
+    // TimeUtilities_TestClass::testCalculateDayInTheWeek().
+    
+    // 1. Example from Section 6 of PAWYC, using all three
+    // overloaded functions.
+    int year = 1985;
+    int month = 2;
+    int day = 17;
+    WeekDays expectedWeekDay1 = SUN;
+    DateAndTime dt1(year, month, day);
+    JulianDate jd1(dt1);
+    WeekDays wd_jd1 = SPA::TIME_UTIL::calculateDayInTheWeek(jd1);
+    WeekDays wd_dt1 = SPA::TIME_UTIL::calculateDayInTheWeek(dt1);
+    WeekDays wd_ymd1 = SPA::TIME_UTIL::calculateDayInTheWeek(year, month, day);
+
+    double expectedJulianDate = 2446113.5;
+    double tolerance = 1.0e-6;
+    ASSERT_EQUAL_DELTAM("1a. JulianDate from DateAndTime is incorrect",
+                        expectedJulianDate,
+                        jd1.getDecimalDays(),
+                        tolerance);
+    ASSERT_EQUALM("1b. calculateDayInTheWeek failed with JulianDate input",
+                  static_cast<int>(expectedWeekDay1),
+                  static_cast<int>(wd_jd1));
+    ASSERT_EQUALM("1c. calculateDayInTheWeek failed with DateAndTime input",
+                  static_cast<int>(expectedWeekDay1),
+                  static_cast<int>(wd_dt1));
+    ASSERT_EQUALM("1d. calculateDayInTheWeek failed with year/month/day input",
+                  static_cast<int>(expectedWeekDay1),
+                  static_cast<int>(wd_ymd1));
     return;
 }
 

@@ -70,7 +70,15 @@ WeekDays calculateDayInTheWeek(const DateAndTime& aDateAndTime);
  * @brief Calculates the day of the week given an input year, month
  *   and day.
  *
- *  Implements Section 6 of PAWYC.
+ * Implements Section 6 of PAWYC.
+ * 
+ * @note Step three third edition of PAWYC says to round to the nearest integer,
+ *  which you might think would result in weekday numbers between 1 and 7, 
+ *  not 0 and 6 as the rest of the example states. However, the algorithm is
+ *  basically the remainder of dividing JD + 1.5 by 7, which is explained
+ *  by std::remaider to use the rounded quotient.
+ * @note The week and day of weel was not affected by the change to the 
+ *  Gregorian calendar, so this algorithm applies before and after the change.
  *
  * @param[in] aYear Input year
  * @param[in] aMonth Input month
@@ -225,7 +233,7 @@ void integerAndFraction(double aRealNumber,
                         double& aFractionalPart);
 
 /**
- * @brief Returns true of the input year is a leap year according to the Gregorian Calendar.
+ * @brief Returns true if the input year is a leap year according to the Gregorian Calendar.
  * @ingroup group_time
  *
  * According to the rules of the Gregorian Calendar, a year is a leap year if
@@ -267,19 +275,21 @@ void quotientAndRemainder(int aDividend,
 
 /**
  * Ostream operator for WeekDays enumeration.
+ * @ingroup group_time
  * 
  * @param[in] os Output stream to modify.
  * @param[in] aWeekDay A weekday enumeration value.
  */
-std::ostream& operator<<(std::ostream& os, WeekDays& aWeekDay);
+std::ostream& operator<<(std::ostream& os, const WeekDays& aWeekDay);
 
 /**
  * Ostream operator for Months enumeration.
+ * @ingroup group_time
  * 
  * @param[in] os Output stream to modify.
  * @param[in] aMonth A month enumeration value.
  */
-std::ostream& operator<<(std::ostream& os, Months& aMonth);
+std::ostream& operator<<(std::ostream& os, const Months& aMonth);
 
 } // end namespace TIME_UTIL
 } // end namespace SPA

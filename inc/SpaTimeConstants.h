@@ -187,6 +187,15 @@ constexpr double SPA_AVG_DAYS_PER_MONTH = 30.6;
 constexpr std::array<int, 12> SPA_DAYSTART_LEAPYEAR = {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335};
 
 /**
+ * @brief Number of days in a week
+ * @ingroup group_time
+ * @source Common usage.
+ * @units Days.
+ *
+ */
+constexpr int SPA_DAYS_PER_WEEK = 7;
+
+/**
  * @brief  Month enumeration, month in year starting from 1.
  * @ingroup group_time
  */

@@ -12,7 +12,9 @@
 - [X] Test all JulianDate and TimeDifference functions
 - [X] Added build instructions.
 - [X] Add ostream functions for time enumerations.
-- [ ] Test of time enumeration ostream functions.
+- [X] Finish calculateDayInTheWeek.
+- [X] Resolve issues with calculateDayInTheWeek using Meuus.
+- [ ] Fix test of time enumeration ostream functions.
 - [ ] Add HourMinsSecs and YearMonthDay structs.
 - [ ] Update mapping
 - [ ] Complete all 'Time' routines

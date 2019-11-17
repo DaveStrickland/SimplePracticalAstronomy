@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     cute::suite exampleSuite;
 
     // General prototypes or benchmarking
-    SPA::TEST::PolynomialTiming_TestClass::makeTestSuite(unitTestSuite);
+    //SPA::TEST::PolynomialTiming_TestClass::makeTestSuite(unitTestSuite);
     SPA::TEST::MakeTimeTestSuite(unitTestSuite);
 
     // White box units tests of SPA itself
