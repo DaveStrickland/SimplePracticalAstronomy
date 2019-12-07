@@ -45,16 +45,16 @@ namespace POLY
     // Example polynomials
 
     /// A six coefficient polynomial used for testing.
-    constexpr std::array<double, 6> SIX_COEFF = {1, 0.1, 0.01, 0.001, 0.0001, 0.00001};
+    constexpr std::array<double, 6> SIX_COEFF = {{1, 0.1, 0.01, 0.001, 0.0001, 0.00001}};
 
     /**
      * A six coefficient polynomial with some coefficient values set to zero, equivalent
      * to a three coefficient polynomial.
      */
-    constexpr std::array<double, 6> SIX_COEFF_ZERO = {1, 0.1, 0.01, 0, 0, 0};
+    constexpr std::array<double, 6> SIX_COEFF_ZERO = {{1, 0.1, 0.01, 0, 0, 0}};
 
     /// A three coefficient polynomial used for testing.
-    constexpr std::array<double, 6> THREE_COEFF = {1, 0.1, 0.01};
+    constexpr std::array<double, 6> THREE_COEFF = {{1, 0.1, 0.01}};
 
     /**
      * Enumeration that names the coefficients of a polynomial and

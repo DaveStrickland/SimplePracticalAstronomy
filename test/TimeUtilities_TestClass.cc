@@ -49,9 +49,9 @@ void TimeUtilities_TestClass::testCalculateEaster()
      * and are taken from https://en.wikipedia.org/wiki/List_of_dates_for_Easter
      */
     const int NTESTS = 7;
-    constexpr std::array<int, NTESTS> inputYears =  {1818, 1943, 1998, 2000, 2009, 2016, 2029};
-    constexpr std::array<int, NTESTS> easterMonth = {3,    4,    4,    4,    4,    3,    4};
-    constexpr std::array<int, NTESTS> easterDay =   {22,   25,   12,   23,   12,   27,   1};
+    constexpr std::array<int, NTESTS> inputYears =  {{1818, 1943, 1998, 2000, 2009, 2016, 2029}};
+    constexpr std::array<int, NTESTS> easterMonth = {{3,    4,    4,    4,    4,    3,    4}};
+    constexpr std::array<int, NTESTS> easterDay =   {{22,   25,   12,   23,   12,   27,   1}};
 
     std::ostringstream ss;
     int month = 0;
@@ -117,8 +117,8 @@ void TimeUtilities_TestClass::testIsLeapYear()
 {
     std::ostringstream ss;
     const int NUM_TESTS = 6;
-    std::array<int, NUM_TESTS> inputYears = {1900, 1999, 2000, 2001, 2004, 2100};
-    std::array<bool, NUM_TESTS> expected = {false, false, true, false, true, false};
+    std::array<int, NUM_TESTS> inputYears = {{1900, 1999, 2000, 2001, 2004, 2100}};
+    std::array<bool, NUM_TESTS> expected = {{false, false, true, false, true, false}};
     for (int iTest = 0; iTest < NUM_TESTS; iTest++)
     {
         bool isLeap = SPA::TIME_UTIL::isLeapYear(inputYears[iTest]);
@@ -138,10 +138,10 @@ void TimeUtilities_TestClass::testCalculateDayNumber()
 {
     std::ostringstream ss;
     const int NUM_TESTS = 2;
-    std::array<int, NUM_TESTS> iYears = {1985, 2018};
-    std::array<int, NUM_TESTS> iMonth = {2, 9};
-    std::array<int, NUM_TESTS> iDay   = {17, 2};
-    std::array<int, NUM_TESTS> expectedDayNumber = {48, 245};
+    std::array<int, NUM_TESTS> iYears = {{1985, 2018}};
+    std::array<int, NUM_TESTS> iMonth = {{2, 9}};
+    std::array<int, NUM_TESTS> iDay   = {{17, 2}};
+    std::array<int, NUM_TESTS> expectedDayNumber = {{48, 245}};
     for (int iTest = 0; iTest < NUM_TESTS; iTest++)
     {
         int year  = iYears[iTest];
@@ -168,8 +168,8 @@ void TimeUtilities_TestClass::testCalculateBCE_Year()
 {
     std::ostringstream ss;
     const int NUM_TESTS = 4;
-    std::array<int, NUM_TESTS> iBCE_Years = {-10, 1, 10, 4713};
-    std::array<int, NUM_TESTS> expectedYears = {0, 0, -9, -4712};
+    std::array<int, NUM_TESTS> iBCE_Years = {{-10, 1, 10, 4713}};
+    std::array<int, NUM_TESTS> expectedYears = {{0, 0, -9, -4712}};
     for (int iTest = 0; iTest < NUM_TESTS; iTest++)
     {
         int bce_year = iBCE_Years[iTest];

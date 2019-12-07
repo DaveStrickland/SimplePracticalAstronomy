@@ -215,14 +215,14 @@ void JulianDate_TestClass::testGetModifiedJulianDate()
 {
     const int NUM_TESTS = 4;
 
-    std::array<double, NUM_TESTS> input_jd = {SPA_MJD_EPOCH,
+    std::array<double, NUM_TESTS> input_jd = {{SPA_MJD_EPOCH,
                                               2400000.5,
                                               2458386.10018519,
-                                              2397000.5};
-    std::array<double, NUM_TESTS> expected_mjd = {0,
+                                              2397000.5}};
+    std::array<double, NUM_TESTS> expected_mjd = {{0,
                                                   0,
                                                   58385.60018519,
-                                                  -3000};
+                                                  -3000}};
     for (int iTest = 0; iTest < NUM_TESTS; iTest++)
     {
         JulianDate jd(input_jd.at(iTest));
