@@ -27,7 +27,10 @@
 
 /**
  * @defgroup group_examples Examples
- * @brief Examples calculations from PAWYC implemented using SPA
+ * @brief Example calculations from PAWYC implemented using SPA.
+ * 
+ * See the documentation of the PAWYC_Examples_TestClass for details
+ * on the individual examples.
  */
 
 #ifndef TEST_PAWYC_EXAMPLES_TESTCLASS_H_
@@ -45,8 +48,9 @@ namespace TEST
  *
  * Each algorithm presented in PAWYC \cite pawyc_1988 has an example
  * associated with it, which the tests in this class demonstrate
- * as examples of how to use SPA. More rigorous tests of each algorithm
- * are provided in other Test Classes,
+ * as examples of how to use SPA. 
+ * 
+ * More rigorous tests of each algorithm are provided in other Test Classes,
  *
  * @ingroup group_examples
  */
