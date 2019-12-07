@@ -14,9 +14,10 @@
 - [X] Add ostream functions for time enumerations.
 - [X] Finish calculateDayInTheWeek.
 - [X] Resolve issues with calculateDayInTheWeek using Meuus.
-- [ ] Fix test of time enumeration ostream functions.
+- [X] Fix test of time enumeration ostream functions.
 - [ ] Add HourMinsSecs and YearMonthDay structs.
-- [ ] Update mapping
+- [ ] Update mapping of functions in markdown documentation
 - [ ] Complete all 'Time' routines
-- [ ] Documentation target
-- [ ] Latex documentation target
+- [ ] Working Documentation target in CMake
+- [ ] Woring Latex documentation target in CMake
+- [ ] Find solution to TIME_UTIL namespace issue w.r.t ostream.

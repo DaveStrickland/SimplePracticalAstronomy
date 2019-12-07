@@ -29,7 +29,6 @@
 #define INC_TIMEUTILITIES_H_
 
 #include <iosfwd> // Forward declarations of iostream.
-
 #include "SpaTimeConstants.h"
 
 namespace SPA
@@ -277,6 +276,9 @@ void quotientAndRemainder(int aDividend,
  * Ostream operator for WeekDays enumeration.
  * @ingroup group_time
  * 
+ * @warning To use this overload the calling function must include
+ * `using namespace SPA::TIME_UTIL`.
+ * 
  * @param[in] os Output stream to modify.
  * @param[in] aWeekDay A weekday enumeration value.
  */
@@ -286,6 +288,9 @@ std::ostream& operator<<(std::ostream& os, const WeekDays& aWeekDay);
  * Ostream operator for Months enumeration.
  * @ingroup group_time
  * 
+ *  * @warning To use this overload the calling function must include
+ * `using namespace SPA::TIME_UTIL`.
+ *
  * @param[in] os Output stream to modify.
  * @param[in] aMonth A month enumeration value.
  */

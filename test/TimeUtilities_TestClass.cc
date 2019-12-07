@@ -486,29 +486,65 @@ bool TimeUtilities_TestClass::hoursMinutesSecondsMatch(int anHoursA,
 
 void TimeUtilities_TestClass::testTimeEnumerationOstream()
 {
+    // Ugly but neccessary at this time.
+    using namespace SPA::TIME_UTIL; // Needed for ostream overloads.
+    
+    // Test overloaded ostream for WeekDays enumeration
+    
     // Construct map of values and expected outputs.
     std::map<SPA::WeekDays, std::string> weekDayMap;
-    weekDayMap.insert( std::make_pair(SUN, std::string("SUN")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("MON")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("TUE")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("WED")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("THU")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("FRI")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("SAT")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Sun")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Mon")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Tue")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Wed")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Thu")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Fri")) );
+    weekDayMap.insert( std::make_pair(SUN, std::string("Sat")) );
     
     // Iterate over map
     std::ostringstream ss;
     for (auto itr = weekDayMap.cbegin(); itr != weekDayMap.cend(); itr++)
     {
-        SPA::WeekDays wd = itr->first;
+        SPA::WeekDays wd     = itr->first;
         std::string expected = itr->second;
-        ss << wd; // TODO: Find why this is mot working
+        ss << wd;
         std::string output = ss.str();
         ss.str(std::string());
         ASSERT_EQUALM("Stream output for input weekday is incorrect.",
             expected,
             output);
     }
+    
+    // Test overload ostream for Months enumeration
+    
+    // Construct map of values and expected outputs.
+    std::map<SPA::Months, std::string> monthMap;
+    monthMap.insert( std::make_pair(JAN, std::string("Jan")) );
+    monthMap.insert( std::make_pair(FEB, std::string("Feb")) );
+    monthMap.insert( std::make_pair(MAR, std::string("Mar")) );
+    monthMap.insert( std::make_pair(APR, std::string("Apr")) );
+    monthMap.insert( std::make_pair(MAY, std::string("May")) );
+    monthMap.insert( std::make_pair(JUN, std::string("Jun")) );
+    monthMap.insert( std::make_pair(JUL, std::string("Jul")) );
+    monthMap.insert( std::make_pair(AUG, std::string("Aug")) );
+    monthMap.insert( std::make_pair(SEP, std::string("Sep")) );
+    monthMap.insert( std::make_pair(OCT, std::string("Oct")) );
+    monthMap.insert( std::make_pair(NOV, std::string("Nov")) );
+    monthMap.insert( std::make_pair(DEC, std::string("Dec")) );
+    
+    // Iterate over map
+    for (auto itr = monthMap.cbegin(); itr != monthMap.cend(); itr++)
+    {
+        SPA::Months month    = itr->first;
+        std::string expected = itr->second;
+        ss << month;
+        std::string output = ss.str();
+        ss.str(std::string());
+        ASSERT_EQUALM("Stream output for input month is incorrect.",
+            expected,
+            output);
+    }
+    
     return;
 }
 
