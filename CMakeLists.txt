@@ -18,7 +18,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-Wall)
 
 # Library module
-set(SOURCES src/DateAndTime.cc
+set(SOURCES src/Date.cc
+    src/Time.cc
+    src/DateAndTime.cc
     src/TimeUtilities.cc
     src/JulianDate.cc
     src/TimeDifference.cc)

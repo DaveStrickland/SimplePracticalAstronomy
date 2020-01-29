@@ -32,7 +32,7 @@ namespace SPA
 {
 
 /**
- * @brief Represents the time elapsed between towo time points
+ * @brief Represents the time elapsed between two time points
  * @ingroup group_time
  *
  * Internally time differences are stored as decimal days

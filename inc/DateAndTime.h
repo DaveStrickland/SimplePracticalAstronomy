@@ -202,7 +202,7 @@ class DateAndTime
 
         /**
          * Sets the year.
-         * @note Currently B.C. ("Before Christ') and the less offensice
+         * @note Currently B.C. ("Before Christ') and the less offensive
          *   B.C.E ("Before Common Era") years should be handled carefully
          *   because there is no year zero. Given a BC or BCE date use
          *   convertBCE_Year() before passing a year into

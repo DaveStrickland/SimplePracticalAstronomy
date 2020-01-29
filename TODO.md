@@ -15,7 +15,8 @@
 - [X] Finish calculateDayInTheWeek.
 - [X] Resolve issues with calculateDayInTheWeek using Meuus.
 - [X] Fix test of time enumeration ostream functions.
-- [ ] Add HourMinsSecs and YearMonthDay structs.
+- [ ] Add Time and Date classes.
+- [ ] Change DateAndTime to use Date and Time via composition.
 - [ ] Update mapping of functions in markdown documentation
 - [ ] Complete all 'Time' routines
 - [ ] Working Documentation target in CMake
