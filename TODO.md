@@ -15,10 +15,10 @@
 - [X] Finish calculateDayInTheWeek.
 - [X] Resolve issues with calculateDayInTheWeek using Meuus.
 - [X] Fix test of time enumeration ostream functions.
-- [ ] Add Time and Date classes.
+- [ ] Add SpaTime and SpaDate classes.
 - [ ] Change DateAndTime to use Date and Time via composition.
 - [ ] Update mapping of functions in markdown documentation
 - [ ] Complete all 'Time' routines
 - [ ] Working Documentation target in CMake
-- [ ] Woring Latex documentation target in CMake
+- [ ] Working Latex documentation target in CMake
 - [ ] Find solution to TIME_UTIL namespace issue w.r.t ostream.
