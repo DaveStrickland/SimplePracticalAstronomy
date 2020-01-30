@@ -16,8 +16,8 @@
  */
 
 /**
- * @file Time.h
- * @brief Declaration of the Time class.
+ * @file SpaTime.h
+ * @brief Declaration of the SpaTime class.
  * @ingroup group_time
  *
  * @author Dave Strickland, <dave.strickland@gmail.com>
@@ -25,8 +25,8 @@
  * @version Jan 28, 2020 dks : Initial coding 
  */
 
-#ifndef INC_TIME_H_
-#define INC_TIME_H_
+#ifndef INC_SPATIME_H_
+#define INC_SPATIME_H_
 
 #include <iostream>
 #include <iomanip>
@@ -43,11 +43,11 @@ namespace SPA
  *  boost datetime classes. It has only a very simplistic treatment of
  *  time zones.
  */
-class Time
+class SpaTime
 {
     public:
         /// Default constructor
-        Time();
+        SpaTime();
 
         /**
          * Construct from explicit hours, minutes and seconds and
@@ -64,19 +64,19 @@ class Time
          * @param[in] aUTC_OffsetHours Offset from UTC in decimal hours, e.g. -4.00.
          *   Allowed input value in range -12.0..12.0 inclusive.
          */
-        Time(int anHours = 0,
+        SpaTime(int anHours = 0,
              int aMinutes = 0,
              double aSeconds = 0,
              double aUTC_OffsetHours = 0);
 
         /// Default destructor
-        virtual ~Time() = default;
+        virtual ~SpaTime() = default;
 
         /// Friend equality operator
-        friend bool operator==(const Time& aLHS, const Time& aRHS);
+        friend bool operator==(const SpaTime& aLHS, const SpaTime& aRHS);
 
         /// Friend less than operator
-        friend bool operator<(const Time& aLHS, const Time& aRHS);
+        friend bool operator<(const SpaTime& aLHS, const SpaTime& aRHS);
 
         /**
          * Returns the hour within the day
@@ -167,21 +167,21 @@ class Time
 };
 
 /**
- * @brief Equality operator for Time class.
+ * @brief Equality operator for SpaTime class.
  * @ingroup group_time
  *
  * @limitations Even floating point members must be binary
  *   identical.
  *
- * @param[in] aLHS First input Time instance.
- * @param[in] aRHS Second input Time instance.
+ * @param[in] aLHS First input SpaTime instance.
+ * @param[in] aRHS Second input SpaTime instance.
  * @return True if all data elements of aLHS and aRHS are binary equal.
  */
-bool operator==(const Time& aLHS,
-                const Time& aRHS);
+bool operator==(const SpaTime& aLHS,
+                const SpaTime& aRHS);
 
 /**
- * @brief Less than operator for Time class.
+ * @brief Less than operator for SpaTime class.
  * @ingroup group_time
  *
  * The fractional decimal days since 00:00:00 UTC are compared.
@@ -190,65 +190,65 @@ bool operator==(const Time& aLHS,
  *   corrections and/or the floating point conversions to decimal
  *   days cause issues. These have not been tested for or corrected yet.
  *
- * @param[in] aLHS First input Time instance.
- * @param[in] aRHS Second input Time instance.
+ * @param[in] aLHS First input SpaTime instance.
+ * @param[in] aRHS Second input SpaTime instance.
  * @return True if aLHS is less than aRHS
  */
-bool operator<(const Time& aLHS,
-               const Time& aRHS);
+bool operator<(const SpaTime& aLHS,
+               const SpaTime& aRHS);
 
 /**
- * @brief Inequality operator for Time.
+ * @brief Inequality operator for SpaTime.
  * @ingroup group_time
  *
- * @param[in] aLHS First input Time instance.
- * @param[in] aRHS Second input Time instance.
+ * @param[in] aLHS First input SpaTime instance.
+ * @param[in] aRHS Second input SpaTime instance.
  * @return True if aLHS is not equal to aRHS
  */
-inline bool operator!=(const Time& aLHS,
-                       const Time& aRHS)
+inline bool operator!=(const SpaTime& aLHS,
+                       const SpaTime& aRHS)
 {
     return !operator==(aLHS, aRHS);
 }
 
 /**
- * @brief Greater than operator for Time.
+ * @brief Greater than operator for SpaTime.
  * @ingroup group_time
  *
- * @param[in] aLHS First input Time instance.
- * @param[in] aRHS Second input Time instance.
+ * @param[in] aLHS First input SpaTime instance.
+ * @param[in] aRHS Second input SpaTime instance.
  * @return True if aLHS is greater than aRHS
  */
-inline bool operator>(const Time& aLHS,
-                      const Time& aRHS)
+inline bool operator>(const SpaTime& aLHS,
+                      const SpaTime& aRHS)
 {
     return operator<(aRHS, aLHS);
 }
 
 /**
- * @brief Less than or equal to operator for Time.
+ * @brief Less than or equal to operator for SpaTime.
  * @ingroup group_time
  *
- * @param[in] aLHS First input Time instance.
- * @param[in] aRHS Second input Time instance.
+ * @param[in] aLHS First input SpaTime instance.
+ * @param[in] aRHS Second input SpaTime instance.
  * @return True if aLHS is less than or equal to aRHS
  */
-inline bool operator<=(const Time& aLHS,
-                       const Time& aRHS)
+inline bool operator<=(const SpaTime& aLHS,
+                       const SpaTime& aRHS)
 {
     return !operator>(aLHS, aRHS);
 }
 
 /**
- * @brief Greater than or equal to operator for Time.
+ * @brief Greater than or equal to operator for SpaTime.
  * @ingroup group_time
  *
- * @param[in] aLHS First input Time instance.
- * @param[in] aRHS Second input Time instance.
+ * @param[in] aLHS First input SpaTime instance.
+ * @param[in] aRHS Second input SpaTime instance.
  * @return True if aLHS is greater than or equal to aRHS
  */
-inline bool operator>=(const Time& aLHS,
-                       const Time& aRHS)
+inline bool operator>=(const SpaTime& aLHS,
+                       const SpaTime& aRHS)
 {
     return !operator<(aLHS, aRHS);
 }
@@ -256,14 +256,14 @@ inline bool operator>=(const Time& aLHS,
 } /* namespace SPA */
 
 /**
- * @brief Ostream operator for Time class.
+ * @brief Ostream operator for SpaTime class.
  * @ingroup group_time
  *
  * @param[in,out] os Output stream to modify
- * @param aTime Time object to serialize to stream
- * @return Stream representation of the DataAndTime object
+ * @param aSpaTime SpaTime object to serialize to stream
+ * @return Stream representation of the DataAndSpaTime object
  */
 std::ostream& operator<<(std::ostream& os,
-                         const SPA::Time& aTime);
+                         const SPA::SpaTime& aSpaTime);
 
-#endif /* INC_TIME_H_ */
+#endif /* INC_SPATIME_H_ */

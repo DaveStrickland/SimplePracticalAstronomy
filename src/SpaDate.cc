@@ -16,8 +16,8 @@
  */
 
 /**
- * @file Date.cc
- * @brief Definitions of the Date class
+ * @file SpaDate.cc
+ * @brief Definitions of the SpaDate class
  * @ingroup group_time
  *
  * @author Dave Strickland, <dave.strickland@gmail.com>
@@ -25,19 +25,19 @@
  * @version Jan 28, 2020 dks : Initial coding 
  */
 
-#include "Date.h"
+#include "SpaDate.h"
 #include "SpaTimeConstants.h"
 
 namespace SPA
 {
 
-Date::Date() : theYear(0),
+SpaDate::SpaDate() : theYear(0),
                 theMonth(0),
                 theDay(0)
 {
 }
 
-Date::Date(int aYear,
+SpaDate::SpaDate(int aYear,
            int aMonth,
            int aDay) : theYear(aYear),
                        theMonth(aMonth),
@@ -45,23 +45,23 @@ Date::Date(int aYear,
 {
 }
 
-void Date::setDay(int aDay)
+void SpaDate::setDay(int aDay)
 {
     theDay = aDay;
 }
 
-void Date::setMonth(int aMonth)
+void SpaDate::setMonth(int aMonth)
 {
     theMonth = aMonth;
 }
 
-void Date::setYear(int aYear)
+void SpaDate::setYear(int aYear)
 {
     theYear = aYear;
 }
 
-bool operator==(const Date& aLHS,
-                const Date& aRHS)
+bool operator==(const SpaDate& aLHS,
+                const SpaDate& aRHS)
 {
     if (aLHS.theYear != aRHS.theYear)
     {
@@ -79,8 +79,8 @@ bool operator==(const Date& aLHS,
     return true;
 }
 
-bool operator<(const Date& aLHS,
-               const Date& aRHS)
+bool operator<(const SpaDate& aLHS,
+               const SpaDate& aRHS)
 {
     // Year comparison
     if (aLHS.theYear < aRHS.theYear)
@@ -122,12 +122,12 @@ bool operator<(const Date& aLHS,
 } /* namespace SPA */
 
 std::ostream& operator<<(std::ostream& os,
-                         const SPA::Date& aDate)
+                         const SPA::SpaDate& aSpaDate)
 {
-    os << "Date{";
-    os << " theYear=" << aDate.getYear()
-       << " theMonth=" <<  aDate.getMonth()
-       << " theDay=" <<  aDate.getDay()
+    os << "SpaDate{";
+    os << " theYear="  << aSpaDate.getYear()
+       << " theMonth=" <<  aSpaDate.getMonth()
+       << " theDay="   <<  aSpaDate.getDay();
     os << " }";
     return os;
 }

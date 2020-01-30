@@ -16,8 +16,8 @@
  */
 
 /**
- * @file Time.cc
- * @brief Definitions of the Time class
+ * @file SpaTime.cc
+ * @brief Definitions of the SpaTime class
  * @ingroup group_time
  *
  * @author Dave Strickland, <dave.strickland@gmail.com>
@@ -25,20 +25,20 @@
  * @version Jan 28, 2020 dks : Initial coding 
  */
 
-#include "Time.h"
+#include "SpaTime.h"
 #include "SpaTimeConstants.h"
 
 namespace SPA
 {
 
-Time::Time() : theHours(0),
+SpaTime::SpaTime() : theHours(0),
                theMinutes(0),
                theSeconds(0),
                theUTC_OffsetHours(0)
 {
 }
 
-Time::Time(int anHours,
+SpaTime::SpaTime(int anHours,
            int aMinutes,
            double aSeconds,
            double aUTC_OffsetHours) : theHours(anHours),
@@ -48,27 +48,27 @@ Time::Time(int anHours,
 {
 }
 
-void Time::setHours(int anHours)
+void SpaTime::setHours(int anHours)
 {
     theHours = anHours;
 }
 
-void Time::setMinutes(int aMinutes)
+void SpaTime::setMinutes(int aMinutes)
 {
     theMinutes = aMinutes;
 }
 
-void Time::setSeconds(double aSeconds)
+void SpaTime::setSeconds(double aSeconds)
 {
     theSeconds = aSeconds;
 }
 
-void Time::setUtcOffsetHours(double aUTC_OffsetHours)
+void SpaTime::setUtcOffsetHours(double aUTC_OffsetHours)
 {
     theUTC_OffsetHours = aUTC_OffsetHours;
 }
 
-double Time::getDayFraction() const
+double SpaTime::getDayFraction() const
 {
     double dayFraction = double(theHours) / double(SPA_HOURS_IN_DAY)
                     + double(theMinutes) / double(SPA_MINUTES_IN_DAY)
@@ -78,8 +78,8 @@ double Time::getDayFraction() const
     return dayFraction;
 }
 
-bool operator==(const Time& aLHS,
-                const Time& aRHS)
+bool operator==(const SpaTime& aLHS,
+                const SpaTime& aRHS)
 {
     if (aLHS.theHours != aRHS.theHours)
     {
@@ -104,8 +104,8 @@ bool operator==(const Time& aLHS,
     return true;
 }
 
-bool operator<(const Time& aLHS,
-               const Time& aRHS)
+bool operator<(const SpaTime& aLHS,
+               const SpaTime& aRHS)
 {
     // Check day fraction which is UTC corrected
     double lhsDayFrac = aLHS.getDayFraction();
@@ -124,13 +124,13 @@ bool operator<(const Time& aLHS,
 } /* namespace SPA */
 
 std::ostream& operator<<(std::ostream& os,
-                         const SPA::Time& aTime)
+                         const SPA::SpaTime& aSpaTime)
 {
-    os << "Time{";
-    os << " theHours=" <<  aTime.getHours()
-       << " theMinutes=" <<  aTime.getMinutes()
-       << " theSeconds=" << std::fixed << std::setprecision(6) << aTime.getSeconds()
-       << " theUTC_OffsetHours=" << std::setprecision(4) << aTime.getUtcOffsetHours();
+    os << "SpaTime{";
+    os << " theHours="   <<  aSpaTime.getHours()
+       << " theMinutes=" <<  aSpaTime.getMinutes()
+       << " theSeconds=" << std::fixed << std::setprecision(6) << aSpaTime.getSeconds()
+       << " theUTC_OffsetHours="       << std::setprecision(4) << aSpaTime.getUtcOffsetHours();
     os << " }";
     return os;
 }
