@@ -31,20 +31,20 @@
 namespace SPA
 {
 
-SpaTime::SpaTime() : theHours(0),
-               theMinutes(0),
-               theSeconds(0),
-               theUTC_OffsetHours(0)
-{
-}
+//SpaTime::SpaTime() : theHours(0),
+               //theMinutes(0),
+               //theSeconds(0),
+               //theUTC_OffsetHours(0)
+//{
+//}
 
 SpaTime::SpaTime(int anHours,
-           int aMinutes,
-           double aSeconds,
-           double aUTC_OffsetHours) : theHours(anHours),
-                                      theMinutes(aMinutes),
-                                      theSeconds(aSeconds),
-                                      theUTC_OffsetHours(aUTC_OffsetHours)
+                 int aMinutes,
+                 double aSeconds,
+                 double aUTC_OffsetHours) : theHours(anHours),
+                                            theMinutes(aMinutes),
+                                            theSeconds(aSeconds),
+                                            theUTC_OffsetHours(aUTC_OffsetHours)
 {
 }
 

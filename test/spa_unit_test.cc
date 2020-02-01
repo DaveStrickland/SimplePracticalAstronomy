@@ -22,6 +22,7 @@
  * @author Dave Strickland, <dave.strickland@gmail.com>
  *
  * @version Aug 27, 2018 dks : Initial coding
+ * @version Feb 01, 2020 dks : Added SpaTime and SpaDate tests.
  */
 
 /**
@@ -37,6 +38,8 @@
 
 #include "TimeUtilities_TestClass.h"
 #include "DateAndTime_TestClass.h"
+#include "SpaDate_TestClass.h"
+#include "SpaTime_TestClass.h"
 #include "JulianDate_TestClass.h"
 #include "TimeDifference_TestClass.h"
 #include "PolynomialTiming_TestClass.h"
@@ -63,7 +66,11 @@ int main(int argc, char *argv[])
     SPA::TEST::MakeTimeTestSuite(unitTestSuite);
 
     // White box units tests of SPA itself
+    // Note: TimeUtilities should be tested before other classes as they
+    //       depend on it.
     SPA::TEST::TimeUtilities_TestClass::makeTestSuite(unitTestSuite);
+    SPA::TEST::SpaDate_TestClass::makeTestSuite(unitTestSuite);
+    SPA::TEST::SpaTime_TestClass::makeTestSuite(unitTestSuite);
     SPA::TEST::DateAndTime_TestClass::makeTestSuite(unitTestSuite);
     SPA::TEST::JulianDate_TestClass::makeTestSuite(unitTestSuite);
     SPA::TEST::TimeDifference_TestClass::makeTestSuite(unitTestSuite);

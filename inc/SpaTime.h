@@ -47,7 +47,7 @@ class SpaTime
 {
     public:
         /// Default constructor
-        SpaTime();
+        //SpaTime();
 
         /**
          * Construct from explicit hours, minutes and seconds and
@@ -65,9 +65,9 @@ class SpaTime
          *   Allowed input value in range -12.0..12.0 inclusive.
          */
         SpaTime(int anHours = 0,
-             int aMinutes = 0,
-             double aSeconds = 0,
-             double aUTC_OffsetHours = 0);
+                int aMinutes = 0,
+                double aSeconds = 0,
+                double aUTC_OffsetHours = 0);
 
         /// Default destructor
         virtual ~SpaTime() = default;

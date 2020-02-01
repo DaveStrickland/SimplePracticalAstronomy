@@ -1,3 +1,4 @@
+# cmake configuration for SimplePracticalAstronomy
 cmake_minimum_required(VERSION 3.0)
 project(spa)
 
@@ -41,6 +42,8 @@ install(TARGETS spa DESTINATION lib)
 set(TEST_SOURCES test/spa_unit_test.cc
     test/SpaTestUtilities.cc
     test/DateAndTime_TestClass.cc
+    test/SpaDate_TestClass.cc
+    test/SpaTime_TestClass.cc
     test/TimeUtilities_TestClass.cc
     test/JulianDate_TestClass.cc
     test/TimeDifference_TestClass.cc

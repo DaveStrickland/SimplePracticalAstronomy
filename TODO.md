@@ -16,7 +16,7 @@
 - [X] Resolve issues with calculateDayInTheWeek using Meuus.
 - [X] Fix test of time enumeration ostream functions.
 - [X] Add SpaTime and SpaDate classes.
-- [ ] Add SpaTime and SpaDate test classes.
+- [X] Add SpaTime and SpaDate test classes.
 - [ ] SpaTime, SpaDate, DateAndTime - operator should create or use TimeDifference
 - [ ] SpaTime, SpaDate, DateAndTime + operator should work with TimeDifference
 - [ ] TimeUtilities calculate decimal functions should use UTC offset.
