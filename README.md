@@ -27,7 +27,9 @@ implementation of PAWYC in order to be able to obtain:
 
 The @ref pawyc_sections table contains a list of the sections defined
 in Practical Astronomy With Your Calculator and their implementation 
-status in Simple Practical Astronomy.
+status in Simple Practical Astronomy. The repository [TODO file](TODO.md)
+also provides a roadmap of what has been implementated and future
+plans by release.
 
 # Dependencies
 

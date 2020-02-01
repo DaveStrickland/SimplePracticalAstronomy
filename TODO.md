@@ -1,6 +1,6 @@
 # TODO List For Simple Practical Astronomy
 
-## Version 0.1
+## Version 0.1 (Time)
  
 - [X] Get coverage working. VERY DISCOURAGING ALTHOUGH CRUDELY WORKING
 - [X] Tests of comparison operators for DateAndTime
@@ -15,10 +15,26 @@
 - [X] Finish calculateDayInTheWeek.
 - [X] Resolve issues with calculateDayInTheWeek using Meuus.
 - [X] Fix test of time enumeration ostream functions.
-- [ ] Add SpaTime and SpaDate classes.
+- [X] Add SpaTime and SpaDate classes.
+- [ ] Add SpaTime and SpaDate test classes.
+- [ ] SpaTime, SpaDate, DateAndTime - operator should create or use TimeDifference
+- [ ] SpaTime, SpaDate, DateAndTime + operator should work with TimeDifference
+- [ ] TimeUtilities calculate decimal functions should use UTC offset.
 - [ ] Change DateAndTime to use Date and Time via composition.
 - [ ] Update mapping of functions in markdown documentation
 - [ ] Complete all 'Time' routines
+- [ ] Find solution to TIME_UTIL namespace issue w.r.t ostream.
+
+## Version 0.2 (Coordinate Systems)
+
+## Version 0.3 (The Sun)
+
+## Version 0.4 (The Planets, Comets and Binary Stars)
+
+## Version 0.5 (The Moon And Eclipses)
+
+## Change Not Yet Allocated To A Release
+
 - [ ] Working Documentation target in CMake
 - [ ] Working Latex documentation target in CMake
-- [ ] Find solution to TIME_UTIL namespace issue w.r.t ostream.
+- [ ] Add version string, switch to major.minor.patch versioning.
