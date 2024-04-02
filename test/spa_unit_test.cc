@@ -89,14 +89,14 @@ int main(int argc, char *argv[])
               << " numberOfTests=" << listener.numberOfTests
               << " successfulTests=" << listener.successfulTests
               << " errors=" << listener.errors
-              << " failedTests=" << listener.failedTests;
+              << " failedTests=" << listener.failedTests << std::endl;
     if (pass)
     {
-        std::cout << " PASS";
+        std::cout << "#tests PASS";
     }
     else
     {
-        std::cout << " FAIL";
+        std::cout << "#tests FAIL";
     }
     std::cout << std::endl;
     return !pass;
