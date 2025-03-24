@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2020-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,9 @@
 
 namespace SPA
 {
+
+// Forward declarations
+class TimeDifference;
 
 /**
  * @brief A simple date class
@@ -233,5 +236,6 @@ inline bool operator>=(const SpaDate& aLHS,
  */
 std::ostream& operator<<(std::ostream& os,
                          const SPA::SpaDate& aSpaDate);
+
 
 #endif /* INC_SPADATE_H_ */

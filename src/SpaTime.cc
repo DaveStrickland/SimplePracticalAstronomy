@@ -70,11 +70,23 @@ void SpaTime::setUtcOffsetHours(double aUTC_OffsetHours)
 
 double SpaTime::getDayFraction() const
 {
-    double dayFraction = double(theHours) / double(SPA_HOURS_IN_DAY)
-                    + double(theMinutes) / double(SPA_MINUTES_IN_DAY)
-                    + theSeconds / double(SPA_SECONDS_IN_DAY);
+    double dayFraction = _getRawDayFraction();
     // Now offset by UTC correction
     dayFraction += theUTC_OffsetHours / double(SPA_HOURS_IN_DAY);
+    return dayFraction;
+}
+
+double SpaTime::getDecimalHours() const
+{
+    double decimalHours = _getRawDayFraction() * double(SPA_HOURS_IN_DAY);
+    return decimalHours;
+}
+
+double SpaTime::_getRawDayFraction() const
+{
+    double dayFraction = double(theHours) / double(SPA_HOURS_IN_DAY)
+        + double(theMinutes) / double(SPA_MINUTES_IN_DAY)
+        + theSeconds / double(SPA_SECONDS_IN_DAY);
     return dayFraction;
 }
 

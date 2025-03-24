@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #include "SpaTestUtilities.h"
 #include "TimeUtilities.h"
 #include "JulianDate.h"
+#include "SpaTime.h"
 #include "DateAndTime.h"
 #include "TimeDifference.h"
 
@@ -207,6 +208,25 @@ void PAWYC_Examples_TestClass::example6_DayOfWeek()
                   static_cast<int>(expectedWeekDay1),
                   static_cast<int>(wd_ymd1));
     return;
+}
+
+void PAWYC_Examples_TestClass::example7_ConvertingToDecimalHours()
+{
+    double expected_decimal_hours = 18.52417;   // Precision given in PAWYC
+    double tolerance = 1.0e-5;
+    int hrs          = 18;      // SpaTime and DateTime use 24 hour clocks
+    int mins         = 31;
+    int secs         = 27;
+    double tzoffset  = 0;       // Time zone not in example
+
+    // 1. Using SpaTime
+    SPA::SpaTime stime(hrs, mins, secs, tzoffset);
+    ASSERT_EQUAL_DELTAM("1a. getDecimalHours from SpaTime is incorrect",
+        expected_decimal_hours,
+        stime.getDecimalHours(),
+        tolerance);
+
+    // 2. Using DateTime
 }
 
 } /* namespace TEST */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ namespace TEST
  * associated with it, which the tests in this class demonstrate
  * as examples of how to use SPA. 
  * 
- * More rigorous tests of each algorithm are provided in other Test Classes,
+ * More rigorous tests of each algorithm are provided in other Test Classes.
  *
  * @ingroup group_examples
  */
@@ -108,6 +108,13 @@ class PAWYC_Examples_TestClass
         void example6_DayOfWeek();
 
         /**
+         * @brief Example of Section 7, converting hours, minutes, and seconds to decimal hours
+         *
+         * 6h 31m 27s PM is 18.52417 hours
+         */
+        void example7_ConvertingToDecimalHours();
+
+        /**
          * Adds all methods that run this class's unit tests to the given cute suite.
          *
          * @param[in,out] aSuite The cute suite that the tests will be added to.
@@ -119,6 +126,7 @@ class PAWYC_Examples_TestClass
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example4_JulianDate);
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example5_JulianDateToCalendarDate);
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example6_DayOfWeek);
+            aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example7_ConvertingToDecimalHours);
         }
     private:
 };

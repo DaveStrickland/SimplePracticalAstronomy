@@ -148,10 +148,42 @@ void SpaTime_TestClass::testGetDayFraction()
 
     double dayFraction = stime1.getDayFraction();
     double tolerance = 1.0e-8;
-    ASSERT_EQUAL_DELTAM("Expected day fraction mismatch for 06:00:00 UT",
+    ASSERT_EQUAL_DELTAM("1. Expected day fraction mismatch for 06:00:00 UT",
                         expectedDayFraction,
                         dayFraction,
                         tolerance);
+
+    // 2. Test UTC offset
+    SpaTime stime2(16, 30, 24, -6.0);   // 16:30:24 TZ offset -6.0 hours
+    expectedDayFraction = edfLambda(stime2);    // No utc offset
+    expectedDayFraction += stime2.getUtcOffsetHours()/double(SPA_HOURS_IN_DAY);
+    ASSERT_EQUAL_DELTAM("2. Expected day fraction mismatch for 16:30:24 TZ offset -6:00",
+        expectedDayFraction,
+        stime2.getDayFraction(),
+        tolerance);
+    return;
+}
+
+void SpaTime_TestClass::testGetDecimalHours()
+{   
+    // Test decimal hours into a day from local (not UT) midnight.
+    const double tolerance = 1.0e-8;
+
+    SpaTime stime1(6, 30, 0, 4.0);   // 06:30:00 TZ +4.0 hours
+    double expected_dhours1 = 6.5;
+    ASSERT_EQUAL_DELTAM("1. Expected decimal hours mismatch for 06:30:00 TZ +4.0 hours",
+        expected_dhours1,
+        stime1.getDecimalHours(),
+        tolerance);
+
+    SpaTime stime2(23, 21, 30, -5.0);   // 23:21:30 TZ -5.0 hours
+        double expected_dhours2 = 23.35833333;
+        ASSERT_EQUAL_DELTAM("2. Expected decimal hours mismatch for 23:21:30 TZ -5.0 hours",
+            expected_dhours2,
+            stime2.getDecimalHours(),
+            tolerance);
+    
+
     return;
 }
 

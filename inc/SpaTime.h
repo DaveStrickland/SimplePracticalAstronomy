@@ -116,6 +116,12 @@ class SpaTime
         }
 
         /**
+         * Returns the time in decimal hours from local midnight.
+         * @returnReturns the time in decimal hours from local midnight.
+         */
+        double getDecimalHours() const;
+  
+        /**
          * Sets the hours in the day
          * @param[in] anHours Input hours (24 hour clock)
          */
@@ -153,6 +159,19 @@ class SpaTime
         double getDayFraction() const;
 
     private:
+        /**
+         * Returns the time within the current day as a fraction of a day from local 00:00:00
+         * on that day.
+         *
+         * Examples:
+         * \li For a UTC correction of 0.00 hours at 08:00:00 local the raw day fraction is 0.333333
+         * \li For a UTC correction of -12.00 hours at 06:00:00 local the raw day fraction is
+         *   0.25 although the timezone corrected getDayFraction() day fraction would be -0.25.
+         *
+         * @return The decimal day fraction with respect to local midnight.
+         */
+        double _getRawDayFraction() const;
+
         /// Hour within the day
         int theHours;
 

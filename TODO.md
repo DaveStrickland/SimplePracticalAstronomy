@@ -38,3 +38,4 @@
 - [ ] Working Documentation target in CMake
 - [ ] Working Latex documentation target in CMake
 - [ ] Add version string, switch to major.minor.patch versioning.
+- [ ] Working test coverage

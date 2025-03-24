@@ -27,6 +27,7 @@
 
 #include "SpaDate.h"
 #include "SpaTimeConstants.h"
+#include "TimeDifference.h"
 
 namespace SPA
 {
@@ -117,6 +118,11 @@ bool operator<(const SpaDate& aLHS,
     } // end if year
 
     return true;
+}
+
+TimeDifference operator-(const SpaDate& aLHS_Date, const SpaDate& aRHS_Date)
+{
+    
 }
 
 } /* namespace SPA */

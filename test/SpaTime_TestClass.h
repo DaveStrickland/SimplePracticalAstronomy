@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2020-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,11 +66,15 @@ class SpaTime_TestClass
          */
         void testComparisonOperators();
 
-
         /**
          * Tests SpaTime::getDayFraction()
          */
         void testGetDayFraction();
+
+        /**
+         * Tests SpaTime::getDecimalHours()
+         */
+        void testGetDecimalHours();
 
         /**
          * Adds all methods that run this class's unit tests to the given cute suite.
@@ -81,6 +85,7 @@ class SpaTime_TestClass
         {
             aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testConstructors);
             aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testComparisonOperators);
+            aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGetDecimalHours);
             aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGetDayFraction);
         }
     private:
