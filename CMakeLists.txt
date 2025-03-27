@@ -28,6 +28,7 @@ endif()
 
 # Profiling
 if(MY_PROFILING)
+    message(STATUS "Enabling profiling and coverage.")
     list(APPEND flags -fprofile-arcs -ftest-coverage)
 endif()
 
@@ -75,13 +76,6 @@ target_compile_options(spa
     ${flags}
   )
 
-# really only needed for debug coverage
-if(MY_PROFILING)
-    target_link_libraries(spa "--coverage")
-    target_link_libraries(spa_unit_test spa "--coverage")
-endif()
-
-install(TARGETS spa DESTINATION lib)
 
 
 add_executable(spa_unit_test ${TEST_SOURCES})
@@ -99,8 +93,6 @@ target_compile_options(spa_unit_test
     ${flags}
   )
   
-# really only needed for debug coverage
-
 target_link_libraries(spa_unit_test spa)
 
 # For interest sake, print includes
@@ -111,3 +103,11 @@ endforeach()
 
 #set(CMAKE_INSTALL_RPATH "${ORIGIN}")
 #set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+
+# really only needed for debug coverage
+if(MY_PROFILING)
+    target_link_libraries(spa "--coverage")
+    target_link_libraries(spa_unit_test spa "--coverage")
+endif()
+
+install(TARGETS spa DESTINATION lib)

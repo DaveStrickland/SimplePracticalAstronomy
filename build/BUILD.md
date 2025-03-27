@@ -25,3 +25,23 @@ make all
 # Assumes you are in the build/ directory already
 ./spa_unit_test
 ```
+
+### Test Coverage
+
+Test coverage reporting requires `govr`. To generate and visualize test coverage
+follow the example:
+
+```bash
+cd build/
+cmake -D MY_PROFILING=ON ..
+
+# Build and run
+make
+# The compile generates .gcno files...
+# ...now run the test executable.
+./spa_unit_test
+
+# Use gcovr
+gcovr -r .. --html-details coverage.html
+firefox file://$(pwd)/coverage.html
+```

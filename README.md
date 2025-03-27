@@ -34,7 +34,9 @@ plans by release.
 # Dependencies
 
 This library requires the user to have a working C++11 compiler. At present,
-and by design, no external dependencies (e.g. boost) are required.
+and by design, no external dependencies (e.g. boost) are required. It uses
+and includes the header-only `CUTE` unit testing framework created by 
+Peter Sommerlad.
 
 # Build And Test
 
