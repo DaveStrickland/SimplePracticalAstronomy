@@ -28,8 +28,8 @@ make all
 
 ### Test Coverage
 
-Test coverage reporting requires `govr`. To generate and visualize test coverage
-follow the example:
+Test coverage reporting requires `govr` is installed. To generate and visualize test 
+coverage by hand follow this example:
 
 ```bash
 cd build/
@@ -43,5 +43,13 @@ make
 
 # Use gcovr
 gcovr -r .. --html-details coverage.html
+firefox file://$(pwd)/coverage.html
+```
+
+Alternatively the `generate_coverage.sh` script can be used, which excludes
+the test code and CUTE headers from the coverage report.
+```bash
+cd build/
+bash ../extras/generate_coverage.sh ./
 firefox file://$(pwd)/coverage.html
 ```
