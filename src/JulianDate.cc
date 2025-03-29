@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -208,10 +208,12 @@ DateAndTime JulianDate::getDateAndTime() const
     int hours;
     int minutes;
     double seconds;
+    int day_offset;
     TIME_UTIL::calculateHoursMinutesAndSeconds(decimalHours,
                                                hours,
                                                minutes,
-                                               seconds);
+                                               seconds,
+                                               day_offset);
 
     int month;
     if (valueG < constantMonth)

@@ -161,18 +161,23 @@ void calculateEaster(int aYear,
  * 
  * Implements Section 8 of PAWYC.
  * 
- * @note Input negative decimal hours result in negative hours,
- *   negative minutes, and negative seconds output.
+ * @note Input negative decimal hours result in hours,
+ *   minutes, and seconds relative to the previous day (aDayOffset==-1).
+ *   Input decimal hours > 24.0 results in hours, minutes, and
+ *   seconds with respect to the next day (aDayOffset==+1).
  * 
  * @param[in] Input decimal hours. 
  * @param[out] Output integer hours.
- * @param[out] Output integer minutes in the range +/-[0,59].
- * @param[out] Output floating point seconds in the range +/-[0,60).
+ * @param[out] Output integer minutes in the range +[0,59].
+ * @param[out] Output floating point seconds in the range +[0,60).
+ * @param[out] aDayOffset The day number relative to the day number in the
+ * *   original time zone,  in the range [-1,1]
  */
 void calculateHoursMinutesAndSeconds(double aDecimalHours,
                                      int& anHours,
                                      int& aMinutes,
-                                     double& aSeconds);
+                                     double& aSeconds,
+                                     int& aDayOffset);
 
 /**
  * Converts a year BC or BCE into a form usable by DateAndTime and other SPA code.

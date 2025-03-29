@@ -116,11 +116,52 @@ class SpaTime
         }
 
         /**
+         * Returns the hours, minutes, and seconds in the default time zone of this instance.
+         * 
+         * @param[out] anHours The integer hours for the given time zone. 
+         * @param[out] aMinutes The integer minutes in the hour for the given time zone. 
+         * @param[out] aSeconds The seconds in the minutes for the given time zone. 
+         * @return Returns the hours, minutes, and seconds
+         */
+        void getHMS(
+            int& anHours,
+            int& aMinutes,
+            double& aSeconds
+        ) const;
+
+        /**
+         * Returns the hours, minutes, and seconds this instance in terms of the input
+         *  time zone offset.
+         * 
+         * @param[in] Offset from UTC in decimal hours, e.g. -4.00.
+         *   Allowed input value in range -12.0..12.0 inclusive.
+         * @param[out] anHours The integer hours for the given time zone. 
+         * @param[out] aMinutes The integer minutes in the hour for the given time zone. 
+         * @param[out] aSeconds The seconds in the minutes for the given time zone. 
+         * @param[out] aDayOffset The day number relative to the day number in the
+         *   original time zone. 
+         * @return Returns the hours, minutes, and seconds
+         */
+        void getHMS(
+            const double &aUTC_OffsetHours,
+            int& anHours,
+            int& aMinutes,
+            double& aSeconds,
+            int& aDayOffset
+        ) const;
+
+        /**
          * Returns the time in decimal hours from local midnight.
          * @returnReturns the time in decimal hours from local midnight.
          */
         double getDecimalHours() const;
   
+        /**
+         * Returns the time in decimal hours from UTC.
+         * @returnReturns the time in decimal hours from UTC.
+         */
+        double getDecimalHoursUTC() const;
+
         /**
          * Sets the hours in the day
          * @param[in] anHours Input hours (24 hour clock)

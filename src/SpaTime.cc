@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2020-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 
 #include "SpaTime.h"
 #include "SpaTimeConstants.h"
+#include "TimeUtilities.h"
 
 namespace SPA
 {
@@ -82,12 +83,47 @@ double SpaTime::getDecimalHours() const
     return decimalHours;
 }
 
+double SpaTime::getDecimalHoursUTC() const
+{
+    double decimalHours  = _getRawDayFraction() * double(SPA_HOURS_IN_DAY);
+    decimalHours        += theUTC_OffsetHours;
+    return decimalHours;
+}
+
 double SpaTime::_getRawDayFraction() const
 {
     double dayFraction = double(theHours) / double(SPA_HOURS_IN_DAY)
         + double(theMinutes) / double(SPA_MINUTES_IN_DAY)
         + theSeconds / double(SPA_SECONDS_IN_DAY);
     return dayFraction;
+}
+
+void SpaTime::getHMS(int& anHours,
+    int& aMinutes,
+    double& aSeconds) const
+{
+    anHours = theHours;
+    aMinutes = theMinutes;
+    aSeconds = theSeconds;
+    return;
+}
+
+void SpaTime::getHMS(
+    const double &aUTC_OffsetHours,
+    int& anHours,
+    int& aMinutes,
+    double& aSeconds,
+    int& aDayOffset
+) const
+{
+    double decimalHours = getDecimalHoursUTC();
+    decimalHours       += aUTC_OffsetHours;
+    TIME_UTIL::calculateHoursMinutesAndSeconds(decimalHours,
+        anHours,
+        aMinutes,
+        aSeconds,
+        aDayOffset);
+    return;
 }
 
 bool operator==(const SpaTime& aLHS,
