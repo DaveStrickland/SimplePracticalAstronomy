@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -173,44 +173,49 @@ void DateAndTime_TestClass::testComparisonOperators()
     ASSERT_EQUALM("Test 4k: dat1d_hi == dat1", false, dat1d_hi == dat1);
     ASSERT_EQUALM("Test 4l: dat1d_hi != dat1", true, dat1d_hi != dat1);
 
-    // 5. Compare against different times within same day.
+    // 5. Compare against different times within same day: hours
     DateAndTime dat1hr_lo(1985, 2, 17, 5, 7, 11, -2.0); // 1985-02-17 03:07:11 UT
     DateAndTime dat1hr_hi(1985, 2, 17, 7, 7, 11, -2.0); // 1985-02-17 05:07:11 UT
 
-    ASSERT_EQUALM("Test 5a: dat1hr_lo < dat1", true,  dat1hr_lo < dat1);
-    ASSERT_EQUALM("Test 5b: dat1hr_lo > dat1", false, dat1hr_lo > dat1);
-    ASSERT_EQUALM("Test 5c: dat1hr_hi < dat1", false, dat1hr_hi < dat1);
-    ASSERT_EQUALM("Test 5d: dat1hr_hi > dat1", true,  dat1hr_hi > dat1);
+    ASSERT_EQUALM("Test 5a: dat1hr_lo < dat1hr_hi",  true,  dat1hr_lo < dat1hr_hi);
+    ASSERT_EQUALM("Test 5b: dat1hr_lo > dat1hr_hi",  false, dat1hr_lo > dat1hr_hi);
+    ASSERT_EQUALM("Test 5c: dat1hr_hi < dat1hr_lo",  false, dat1hr_hi < dat1hr_lo);
+    ASSERT_EQUALM("Test 5d: dat1hr_hi > dat1hr_lo",  true,  dat1hr_hi > dat1hr_lo);
+    ASSERT_EQUALM("Test 5e: dat1hr_lo == dat1hr_hi", false, dat1hr_lo == dat1hr_hi);
+    ASSERT_EQUALM("Test 5f: dat1hr_lo != dat1hr_hi", true,  dat1hr_lo != dat1hr_hi);
 
+     // 6. Compare against different times within same day: minutes
     DateAndTime dat1mn_lo(1985, 2, 17, 6, 6, 11, -2.0); // 1985-02-17 04:06:11 UT
     DateAndTime dat1mn_hi(1985, 2, 17, 6, 8, 11, -2.0); // 1985-02-17 04:08:11 UT
 
-    ASSERT_EQUALM("Test 5e: dat1mn_lo < dat1", true,  dat1mn_lo < dat1);
-    ASSERT_EQUALM("Test 5f: dat1mn_lo > dat1", false, dat1mn_lo > dat1);
-    ASSERT_EQUALM("Test 5g: dat1mn_hi < dat1", false, dat1mn_hi < dat1);
-    ASSERT_EQUALM("Test 5h: dat1mn_hi > dat1", true,  dat1mn_hi > dat1);
+    ASSERT_EQUALM("Test 6a: dat1mn_lo < dat1mn_hi",  true,  dat1mn_lo < dat1mn_hi);
+    ASSERT_EQUALM("Test 6b: dat1mn_lo > dat1mn_hi",  false, dat1mn_lo > dat1mn_hi);
+    ASSERT_EQUALM("Test 6c: dat1mn_hi < dat1mn_lo",  false, dat1mn_hi < dat1mn_lo);
+    ASSERT_EQUALM("Test 6d: dat1mn_hi > dat1mn_lo",  true,  dat1mn_hi > dat1mn_lo);
+    ASSERT_EQUALM("Test 6e: dat1mn_lo == dat1mn_hi", false, dat1mn_lo == dat1mn_hi);
+    ASSERT_EQUALM("Test 6f: dat1mn_lo != dat1mn_hi", true,  dat1mn_lo != dat1mn_hi);
 
+    // 7. Compare against different times within same day: seconds
     DateAndTime dat1sec_lo(1985, 2, 17, 6, 7, 10.5, -2.0); // 1985-02-17 04:06:10.5 UT
     DateAndTime dat1sec_hi(1985, 2, 17, 6, 7, 11.5, -2.0); // 1985-02-17 04:08:11.5 UT
 
-    ASSERT_EQUALM("Test 5e: dat1sec_lo < dat1", true,  dat1sec_lo < dat1);
-    ASSERT_EQUALM("Test 5f: dat1sec_lo > dat1", false, dat1sec_lo > dat1);
-    ASSERT_EQUALM("Test 5g: dat1sec_hi < dat1", false, dat1sec_hi < dat1);
-    ASSERT_EQUALM("Test 5h: dat1sec_hi > dat1", true,  dat1sec_hi > dat1);
+    ASSERT_EQUALM("Test 7a: dat1sec_lo < dat1sec_hi",  true,  dat1sec_lo < dat1sec_hi);
+    ASSERT_EQUALM("Test 7b: dat1sec_lo > dat1sec_hi",  false, dat1sec_lo > dat1sec_hi);
+    ASSERT_EQUALM("Test 7c: dat1sec_hi < dat1sec_lo",  false, dat1sec_hi < dat1sec_lo);
+    ASSERT_EQUALM("Test 7d: dat1sec_hi > dat1sec_lo",  true,  dat1sec_hi > dat1sec_lo);
+    ASSERT_EQUALM("Test 7e: dat1sec_lo == dat1sec_hi", false, dat1sec_lo == dat1sec_hi);
+    ASSERT_EQUALM("Test 7f: dat1sec_lo != dat1sec_hi", true,  dat1sec_lo != dat1sec_hi);
 
-    // 6. UTC time corrections.
+    // 8. UTC time corrections.
     DateAndTime dat1utc_lo(1985, 2, 17, 6, 7, 11, -2.1); // 1985-02-17 04:01:11 UT
     DateAndTime dat1utc_hi(1985, 2, 17, 6, 7, 11, -1.9); // 1985-02-17 04:13:11 UT
 
-    ASSERT_EQUALM("Test 6a: dat1utc_lo < dat1", true,  dat1utc_lo < dat1);
-    ASSERT_EQUALM("Test 6b: dat1utc_lo > dat1", false, dat1utc_lo > dat1);
-    ASSERT_EQUALM("Test 6c: dat1utc_lo == dat1", false, dat1utc_lo == dat1);
-    ASSERT_EQUALM("Test 6d: dat1utc_lo != dat1", true,  dat1utc_lo != dat1);
-
-    ASSERT_EQUALM("Test 6e: dat1utc_hi < dat1", false, dat1utc_hi < dat1);
-    ASSERT_EQUALM("Test 6f: dat1utc_hi > dat1", true,  dat1utc_hi > dat1);
-    ASSERT_EQUALM("Test 6g: dat1utc_hi == dat1", false, dat1utc_hi == dat1);
-    ASSERT_EQUALM("Test 6h: dat1utc_hi != dat1", true,  dat1utc_hi != dat1);
+    ASSERT_EQUALM("Test 8a: dat1utc_lo < dat1utc_hi",  true,  dat1utc_lo < dat1utc_hi);
+    ASSERT_EQUALM("Test 8b: dat1utc_lo > dat1utc_hi",  false, dat1utc_lo > dat1utc_hi);
+    ASSERT_EQUALM("Test 8c: dat1utc_hi < dat1utc_lo",  false, dat1utc_hi < dat1utc_lo);
+    ASSERT_EQUALM("Test 8d: dat1utc_hi > dat1utc_lo",  true,  dat1utc_hi > dat1utc_lo);
+    ASSERT_EQUALM("Test 8e: dat1utc_lo == dat1utc_hi", false, dat1utc_lo == dat1utc_hi);
+    ASSERT_EQUALM("Test 8f: dat1utc_lo != dat1utc_hi", true,  dat1utc_lo != dat1utc_hi);
     return;
 }
 
@@ -229,6 +234,23 @@ void DateAndTime_TestClass::testGetDayFraction()
                         expectedDayFraction,
                         dayFraction,
                         tolerance);
+    return;
+}
+
+void DateAndTime_TestClass::testOstreamOperator()
+{
+    std::ostringstream ss;
+    DateAndTime dat(1985, 2, 17, 6, 33, 21.52, -5.0); // 1985-02-17 06:33:21.52 UTC-5.0 hours
+    ss << dat;
+    std::string output_str = ss.str();   
+
+    // Very mutch a cludge, this is what we expect the ostream operator to
+    // produce.
+    std::string expected_str("DateAndTime{ theYear=1985 theMonth=2 theDay=17 theHours=6 theMinutes=33 theSeconds=21.520000 theUTC_OffsetHours=-5.0000 }");
+
+    ASSERT_EQUALM("ostream string does not match expectation",
+        expected_str, 
+        output_str);
     return;
 }
 
@@ -304,6 +326,86 @@ bool DateAndTime_TestClass::checkDateAndTimeValues(const SPA::DateAndTime& aDate
         anErrorMessage.clear();
     }
     return passes;
+}
+
+void DateAndTime_TestClass::testGettersAndSetters()
+{
+    double tolerance = 1.0e-8;
+
+    // Constructor setting all values.
+    int expectedYear = 1;
+    int expectedMonth = 2;
+    int expectedDay = 3;
+    int expectedHours = 4;
+    int expectedMinutes = 5;
+    double expectedSeconds = 6.7;
+    double expectedUtcOffset = 8.9;
+    DateAndTime dat(expectedYear, expectedMonth, expectedDay,
+                    expectedHours, expectedMinutes, expectedSeconds, expectedUtcOffset);
+
+    ASSERT_EQUALM("After ctor, year does not match expectation", 
+        expectedYear,
+        dat.getYear());
+    ASSERT_EQUALM("After ctor, month does not match expectation", 
+        expectedMonth,
+        dat.getMonth());
+    ASSERT_EQUALM("After ctor, day does not match expectation", 
+        expectedDay,
+        dat.getDay());
+    ASSERT_EQUALM("After ctor, hour does not match expectation", 
+        expectedHours,
+        dat.getHours());
+    ASSERT_EQUALM("After ctor, minute does not match expectation", 
+        expectedMinutes,
+        dat.getMinutes());
+    ASSERT_EQUAL_DELTAM("After ctor, second does not match expectation", 
+        expectedSeconds,
+        dat.getSeconds(),
+        tolerance);
+    ASSERT_EQUAL_DELTAM("After ctor, UTC offset does not match expectation", 
+        expectedUtcOffset,
+        dat.getUtcOffsetHours(),
+        tolerance);
+
+    // Now test the setters.
+    expectedYear = 2024;
+    expectedMonth = 12;
+    expectedDay = 25;
+    expectedHours = 6;
+    expectedMinutes = 30;
+    expectedSeconds = 33.5;
+    expectedUtcOffset = -5.0;
+    dat.setYear(expectedYear);
+    dat.setMonth(expectedMonth);
+    dat.setDay(expectedDay);
+    dat.setHours(expectedHours);
+    dat.setMinutes(expectedMinutes);
+    dat.setSeconds(expectedSeconds);
+    dat.setUtcOffsetHours(expectedUtcOffset);
+    ASSERT_EQUALM("After setter, year does not match expectation", 
+        expectedYear,
+        dat.getYear());
+    ASSERT_EQUALM("After setter, month does not match expectation", 
+        expectedMonth,
+        dat.getMonth());
+    ASSERT_EQUALM("After setter, day does not match expectation", 
+        expectedDay,
+        dat.getDay());
+    ASSERT_EQUALM("After setter, hour does not match expectation", 
+        expectedHours,
+        dat.getHours());
+    ASSERT_EQUALM("After setter, minute does not match expectation", 
+        expectedMinutes,
+        dat.getMinutes());
+    ASSERT_EQUAL_DELTAM("After setter, second does not match expectation", 
+        expectedSeconds,
+        dat.getSeconds(),
+        tolerance);
+    ASSERT_EQUAL_DELTAM("After setter, UTC offset does not match expectation", 
+        expectedUtcOffset,
+        dat.getUtcOffsetHours(),
+        tolerance);
+    return;
 }
 
 } /* namespace TEST */
