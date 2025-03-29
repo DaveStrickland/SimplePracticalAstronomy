@@ -14,11 +14,13 @@ or the Explanatory Supplement to the Astronomical Almanac @cite exp_sup_2013,
 they have a pedagogical value in being much simpler and easier to understand. 
 To quote Richard Hamming, "The purpose of computing is insight, not numbers."
 
-Having used professional-level libraries such as SOFA, NOVAS, ERFA, other 
-implementations of unknown provenance, and partial implementations of
- Meeus's Astronomical Algorithms @cite meeus_1998, I was motivated to create an
+Having used professional-level libraries such as SOFA, NOVAS, ERFA, CSPICE, and 
+other implementations of unknown provenance, and partial implementations of
+Meeus's Astronomical Algorithms @cite meeus_1998, I was motivated to create an
 implementation of PAWYC in order to be able to obtain:
-- The difference in accuracy of these other libraries, compared to the simplest possible algorithm
+
+- The difference in accuracy of these other libraries, compared to the simplest possible
+  algorithm
 - The lowest possible computational cost implementation for a given algorithm
 - A baseline, first-order-accurate, answer for any interesting value in order
   to have a sanity check on whether code using some other library is working correctly
@@ -33,10 +35,13 @@ plans by release.
 
 # Dependencies
 
-This library requires the user to have a working C++11 compiler. At present,
-and by design, no external dependencies (e.g. boost) are required. It uses
-and includes the header-only `CUTE` unit testing framework created by 
-Peter Sommerlad.
+This library requires the user to have a working C++ compiler that honors
+the C++14 standard. At present, and by design, no external dependencies 
+(e.g. boost) are required. It uses and includes the header-only `CUTE` 
+unit testing framework created by Peter Sommerlad.
+
+Documentation uses `doxygen`, and code coverage requires `gcovr`, but neither
+of those are required to compile the code.
 
 # Build And Test
 
