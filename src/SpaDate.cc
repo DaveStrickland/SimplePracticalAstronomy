@@ -122,7 +122,8 @@ bool operator<(const SpaDate& aLHS,
 
 TimeDifference operator-(const SpaDate& aLHS_Date, const SpaDate& aRHS_Date)
 {
-    
+    std::cerr << "error, operator- not yet implemented" << std::endl;
+    return TimeDifference(0);
 }
 
 } /* namespace SPA */

@@ -244,10 +244,14 @@ double calculateDecimalHours(int anHour,
 void calculateHoursMinutesAndSeconds(double aDecimalHours,
                                      int& anHours,
                                      int& aMinutes,
-                                     double& aSeconds)
+                                     double& aSeconds,
+                                     int& aDayOffset)
 {
-    double int_hours = std::trunc(aDecimalHours); // trunctated to lowest int
-    double mins = double(SPA_MINUTES_IN_HOUR) * (aDecimalHours - int_hours);
+    aDayOffset = (int)std::floor(aDecimalHours / double(SPA_HOURS_IN_DAY));
+    double delta_hours = double(SPA_HOURS_IN_DAY * aDayOffset);
+    double corrected_hours = aDecimalHours - delta_hours;
+    double int_hours = std::trunc(corrected_hours); // trunctated to lowest int
+    double mins = double(SPA_MINUTES_IN_HOUR) * (corrected_hours - int_hours);
     double int_min = std::trunc(mins);
     aSeconds = double(SPA_SECONDS_IN_MINUTE) * (mins - int_min);
     aMinutes = int(int_min);

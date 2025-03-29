@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -137,11 +137,16 @@ void TimeUtilities_TestClass::testIsLeapYear()
 void TimeUtilities_TestClass::testCalculateDayNumber()
 {
     std::ostringstream ss;
-    const int NUM_TESTS = 2;
-    std::array<int, NUM_TESTS> iYears = {{1985, 2018}};
-    std::array<int, NUM_TESTS> iMonth = {{2, 9}};
-    std::array<int, NUM_TESTS> iDay   = {{17, 2}};
-    std::array<int, NUM_TESTS> expectedDayNumber = {{48, 245}};
+
+    // Additional test cases can be constructed using the unix cal command, e.g.
+    // `cal 02 2024` shows the calendar for February 2024, and the ordinal day
+    // numbers can be shown using `cal -j 02 2024`
+
+    const int NUM_TESTS = 4;
+    std::array<int, NUM_TESTS> iYears = {{1985, 2018, 2024, 2024}};
+    std::array<int, NUM_TESTS> iMonth = {{2,    9,    2,    3}};
+    std::array<int, NUM_TESTS> iDay   = {{17,   2,    29,   3}};
+    std::array<int, NUM_TESTS> expectedDayNumber = {{48, 245, 60, 63}};
     for (int iTest = 0; iTest < NUM_TESTS; iTest++)
     {
         int year  = iYears[iTest];
@@ -378,30 +383,35 @@ void TimeUtilities_TestClass::testCalculateHoursMinutesAndSeconds()
     int outputHours;
     int outputMinutes;
     double outputSeconds;
+    int outputDayOffset;
     
     // 1. 1.5 hours-> 1h30m00s
     int expectedHours = 1;
     int expectedMinutes = 30;
     double expectedSeconds = 0;
     double inputDecimalHours = 1.5;
+    int expectedDayOffset = 0;
     calculateHoursMinutesAndSeconds(inputDecimalHours, 
                                     outputHours, 
                                     outputMinutes, 
-                                    outputSeconds);
+                                    outputSeconds,
+                                    outputDayOffset);
     if ( ! hoursMinutesSecondsMatch(expectedHours,
                                     expectedMinutes,
                                     expectedSeconds,
+                                    expectedDayOffset,
                                     outputHours,
                                     outputMinutes,
                                     outputSeconds,
+                                    outputDayOffset,
                                     tolerance) )
     {
         std::ostringstream ss;
         ss << "HMS differ: expected={" 
            << expectedHours << ":" << expectedMinutes 
-           << ":" << std::fixed<< std::setprecision(precision) << expectedSeconds << "}"
+           << ":" << std::fixed<< std::setprecision(precision) << expectedSeconds << ", dayOffset=" << expectedDayOffset << "}"
            << " actual={" << outputHours << ":" << outputMinutes 
-           << ":" << std::fixed<< std::setprecision(precision) << outputSeconds << "}";
+           << ":" << std::fixed<< std::setprecision(precision) << outputSeconds << ", dayOffset=" << outputDayOffset << "}";
         FAILM(ss.str());
     }
                          
@@ -410,50 +420,58 @@ void TimeUtilities_TestClass::testCalculateHoursMinutesAndSeconds()
     expectedMinutes = 15;
     expectedSeconds = 0;
     inputDecimalHours = 2.25;
+    expectedDayOffset = 0;
     calculateHoursMinutesAndSeconds(inputDecimalHours, 
                                     outputHours, 
                                     outputMinutes, 
-                                    outputSeconds);
+                                    outputSeconds,
+                                    outputDayOffset);
     if ( ! hoursMinutesSecondsMatch(expectedHours,
                                     expectedMinutes,
                                     expectedSeconds,
+                                    expectedDayOffset,
                                     outputHours,
                                     outputMinutes,
                                     outputSeconds,
+                                    outputDayOffset,
                                     tolerance) )
     {
         std::ostringstream ss;
         ss << "HMS differ: expected={" 
            << expectedHours << ":" << expectedMinutes 
-           << ":" << std::fixed<< std::setprecision(precision) << expectedSeconds << "}"
+           << ":" << std::fixed<< std::setprecision(precision) << expectedSeconds << ", dayOffset=" << expectedDayOffset << "}"
            << " actual={" << outputHours << ":" << outputMinutes 
-           << ":" << std::fixed<< std::setprecision(precision) << outputSeconds << "}";
+           << ":" << std::fixed<< std::setprecision(precision) << outputSeconds << ", dayOffset=" << outputDayOffset << "}";
         FAILM(ss.str());
     }
         
     // 3. -5.11 hours -> -5h06m36s
-    expectedHours = -5;
-    expectedMinutes = -6;
-    expectedSeconds = -36;
+    expectedDayOffset   = -1;
+    expectedHours       = 18;
+    expectedMinutes     = 53;
+    expectedSeconds     = 24;
     inputDecimalHours = -5.11;
     calculateHoursMinutesAndSeconds(inputDecimalHours, 
                                     outputHours, 
                                     outputMinutes, 
-                                    outputSeconds);
+                                    outputSeconds,
+                                    outputDayOffset);
     if ( ! hoursMinutesSecondsMatch(expectedHours,
                                     expectedMinutes,
                                     expectedSeconds,
+                                    expectedDayOffset,
                                     outputHours,
                                     outputMinutes,
                                     outputSeconds,
+                                    outputDayOffset,
                                     tolerance) )
     {
         std::ostringstream ss;
         ss << "HMS differ: expected={" 
            << expectedHours << ":" << expectedMinutes 
-           << ":" << std::fixed<< std::setprecision(precision) << expectedSeconds << "}"
+           << ":" << std::fixed<< std::setprecision(precision) << expectedSeconds << ", dayOffset=" << expectedDayOffset << "}"
            << " actual={" << outputHours << ":" << outputMinutes 
-           << ":" << std::fixed<< std::setprecision(precision) << outputSeconds << "}";
+           << ":" << std::fixed<< std::setprecision(precision) << outputSeconds << ", dayOffset=" << outputDayOffset << "}";
         FAILM(ss.str());
     }
     
@@ -463,11 +481,17 @@ void TimeUtilities_TestClass::testCalculateHoursMinutesAndSeconds()
 bool TimeUtilities_TestClass::hoursMinutesSecondsMatch(int anHoursA,
                                                        int aMinutesA,
                                                        double aSecondsA,
+                                                       int aDayOffsetA,
                                                        int anHoursB,
                                                        int aMinutesB,
                                                        double aSecondsB,
+                                                       int aDayOffsetB,
                                                        double aSecondsTolerance)
 {
+    if (aDayOffsetA != aDayOffsetB)
+    {
+        return false;
+    }
     if (anHoursA != anHoursB)
     {
         return false;
@@ -494,12 +518,13 @@ void TimeUtilities_TestClass::testTimeEnumerationOstream()
     // Construct map of values and expected outputs.
     std::map<SPA::WeekDays, std::string> weekDayMap;
     weekDayMap.insert( std::make_pair(SUN, std::string("Sun")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("Mon")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("Tue")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("Wed")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("Thu")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("Fri")) );
-    weekDayMap.insert( std::make_pair(SUN, std::string("Sat")) );
+    weekDayMap.insert( std::make_pair(MON, std::string("Mon")) );
+    weekDayMap.insert( std::make_pair(TUE, std::string("Tue")) );
+    weekDayMap.insert( std::make_pair(WED, std::string("Wed")) );
+    weekDayMap.insert( std::make_pair(THU, std::string("Thu")) );
+    weekDayMap.insert( std::make_pair(FRI, std::string("Fri")) );
+    weekDayMap.insert( std::make_pair(SAT, std::string("Sat")) );
+    weekDayMap.insert( std::make_pair(static_cast<SPA::WeekDays>(17), std::string("Invalid WeekDay")) );
     
     // Iterate over map
     std::ostringstream ss;
@@ -531,6 +556,7 @@ void TimeUtilities_TestClass::testTimeEnumerationOstream()
     monthMap.insert( std::make_pair(OCT, std::string("Oct")) );
     monthMap.insert( std::make_pair(NOV, std::string("Nov")) );
     monthMap.insert( std::make_pair(DEC, std::string("Dec")) );
+    monthMap.insert( std::make_pair(static_cast<SPA::Months>(17), std::string("Invalid Month")) );
     
     // Iterate over map
     for (auto itr = monthMap.cbegin(); itr != monthMap.cend(); itr++)

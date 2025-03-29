@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -105,17 +105,20 @@ class TimeUtilities_TestClass
 
         /**
          * @brief Utility function that returns true if two
-         *   times, A and B, have matching hours, minutes and seconds.
+         *   times, A and B, have matching hours, minutes, seconds,
+         *   and day offset.
          * 
-         * The hours and minutes must match exactly, the seconds
+         * The hours, minutes, and day offset must match exactly, the seconds
          * must match within the input floating point tolerance.
          * 
          * @param[in] anHoursA Input hours from time A.
          * @param[in] aMinutesA Input minutes from time A.
          * @param[in] aSecondsA Input seconds from time A.
+         * @param[in] aDayOffsetA Input day offset from time A.
          * @param[in] anHoursB Input hours from time B.
          * @param[in] aMinutesB Input minutes from time B.
          * @param[in] aSecondsB Input seconds from time B.
+         * @param[in] aDayOffsetB Input day offset from time B.
          * @param[in] aSecondsTolerance Tolerance within which the
          *   seconds from A and B are considered to match.
          * @return True if times A and B match, false otherwise.
@@ -123,9 +126,11 @@ class TimeUtilities_TestClass
         static bool hoursMinutesSecondsMatch(int anHoursA,
                                              int aMinutesA,
                                              double aSecondsA,
+                                             int aDayOffsetA,
                                              int anHoursB,
                                              int aMinutesB,
                                              double aSecondsB,
+                                             int aDayOffsetB,
                                              double aSecondsTolerance = 1.0e-9);
 
         /**
