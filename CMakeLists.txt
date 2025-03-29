@@ -29,7 +29,7 @@ endif()
 # Profiling
 if(MY_PROFILING)
     message(STATUS "Enabling profiling and coverage.")
-    list(APPEND flags -fprofile-arcs -ftest-coverage)
+    list(APPEND flags -fprofile-arcs -ftest-coverage -O1)
 endif()
 
 set(CMAKE_VERBOSE_MAKEFILE ON)

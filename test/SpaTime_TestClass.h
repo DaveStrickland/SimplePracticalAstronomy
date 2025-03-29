@@ -77,6 +77,26 @@ class SpaTime_TestClass
         void testGetDecimalHours();
 
         /**
+         * Tests SpaTime::getDecimalHoursUTC
+         */
+        void testGetDecimalHoursUTC();
+
+        /**
+         * Tests SpaTime::getHMS.
+         */
+        void testGetHMS();
+
+        /**
+         * Tests getters and setters.
+         */
+        void testGettersAndSetters();
+
+        /**
+         * Tests ostream operator.
+         */
+        void testOstreamOperator();
+
+        /**
          * Adds all methods that run this class's unit tests to the given cute suite.
          *
          * @param[in,out] aSuite The cute suite that the tests will be added to.
@@ -87,6 +107,10 @@ class SpaTime_TestClass
             aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testComparisonOperators);
             aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGetDecimalHours);
             aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGetDayFraction);
+            aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGetDecimalHoursUTC);
+            aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGetHMS);
+            aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testGettersAndSetters);
+            aSuite += CUTE_SMEMFUN(SpaTime_TestClass, testOstreamOperator);
         }
     private:
         /**

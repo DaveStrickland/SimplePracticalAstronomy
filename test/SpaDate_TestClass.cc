@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2020-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -177,6 +177,68 @@ bool SpaDate_TestClass::checkSpaDateValues(const SPA::SpaDate& aSpaDate,
         anErrorMessage.clear();
     }
     return passes;
+}
+
+void SpaDate_TestClass::testGettersAndSetters()
+{
+    double tolerance = 1.0e-8;
+
+    // Constructor setting all values.
+    int expectedYear = 1;
+    int expectedMonth = 2;
+    int expectedDay = 3;
+    SpaDate dat(expectedYear, expectedMonth, expectedDay);
+
+    ASSERT_EQUALM("After ctor, year does not match expectation", 
+        expectedYear,
+        dat.getYear());
+    ASSERT_EQUALM("After ctor, month does not match expectation", 
+        expectedMonth,
+        dat.getMonth());
+    ASSERT_EQUALM("After ctor, day does not match expectation", 
+        expectedDay,
+        dat.getDay());
+
+    // Now test the setters.
+    expectedYear = 2024;
+    expectedMonth = 12;
+    expectedDay = 25;
+    dat.setYear(expectedYear);
+    dat.setMonth(expectedMonth);
+    dat.setDay(expectedDay);
+    ASSERT_EQUALM("After setter, year does not match expectation", 
+        expectedYear,
+        dat.getYear());
+    ASSERT_EQUALM("After setter, month does not match expectation", 
+        expectedMonth,
+        dat.getMonth());
+    ASSERT_EQUALM("After setter, day does not match expectation", 
+        expectedDay,
+        dat.getDay());
+    return;
+}
+
+void SpaDate_TestClass::testOstreamOperator()
+{
+    std::ostringstream ss;
+    SpaDate dat(1985, 2, 17); // 1985-02-17 
+    ss << dat;
+    std::string output_str = ss.str();   
+
+    // Very mutch a cludge, this is what we expect the ostream operator to
+    // produce.
+    std::string expected_str("SpaDate{ theYear=1985 theMonth=2 theDay=17 }");
+
+    ASSERT_EQUALM("ostream string does not match expectation",
+        expected_str, 
+        output_str);
+    return;
+}
+
+void SpaDate_TestClass::testDifferenceOperator()
+{
+    FAILM("not yet implemented");
+    return;
 }
 
 } /* namespace TEST */

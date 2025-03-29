@@ -52,6 +52,7 @@ if [ -e $p_cov ]; then
 fi
 gcovr -r ..  -e "/.*\/test\/.*" \
     -e "/.*\/inc\/GoodTimer.h" \
+    --decisions --exclude-unreachable-branches \
     --html-details $p_cov
 p_covfile=$(pwd)'/'$p_cov
 

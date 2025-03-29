@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2020-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,6 +67,21 @@ class SpaDate_TestClass
         void testComparisonOperators();
 
         /**
+         * Tests getters and setters.
+         */
+        void testGettersAndSetters();
+
+        /**
+         * Tests ostream operator.
+         */
+        void testOstreamOperator();
+
+        /**
+         * Tests operator-.
+         */
+        void testDifferenceOperator();
+
+        /**
          * Adds all methods that run this class's unit tests to the given cute suite.
          *
          * @param[in,out] aSuite The cute suite that the tests will be added to.
@@ -75,6 +90,9 @@ class SpaDate_TestClass
         {
             aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testConstructors);
             aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testComparisonOperators);
+            aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testGettersAndSetters);
+            aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testOstreamOperator);
+            aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testDifferenceOperator);
         }
     private:
         /**
