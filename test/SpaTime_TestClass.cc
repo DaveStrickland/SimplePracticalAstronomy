@@ -194,36 +194,92 @@ void SpaTime_TestClass::testGetDecimalHours()
 
 void SpaTime_TestClass::testGetHMS()
 {   
-    // Test decimal hours into a day from UT midnight.
+   
+        // Test decimal hours into H:M:S 
     const double tolerance = 1.0e-8;
+    int outputHours;
+    int outputMinutes;
+    double outputSeconds;
+    int outputDayOffset;
 
-    SpaTime stime1(6, 30, 0, 4.0);   // 06:30:00 TZ +4.0 hours = 02:30:00 UTC
-    double expected_dhours1 = 6.5 - 4.0;
+    int expectedHours           = 6;
+    int expectedMinutes         = 30;
+    double expectedSeconds      = 1.5;
+    double expectedUTCOffset    = 4.0;
+    int expectedDayOffset       = 0;
+    SpaTime stime1(expectedHours, expectedMinutes, expectedSeconds, expectedUTCOffset); // 06:30:01.5 TZ +4.0 hours = 02:30:00 UTC
+    stime1.getHMS(outputHours, outputMinutes, outputSeconds);
+    ASSERT_EQUALM("1a. getHMS() hours differ", expectedHours, outputHours);
+    ASSERT_EQUALM("1b. getHMS() minutes differ", expectedMinutes, outputMinutes);
+    ASSERT_EQUAL_DELTAM("1c. getHMS() seconds differ", expectedSeconds, outputSeconds, tolerance);
 
-    SpaTime stime2(23, 21, 30, -5.0);   // 23:21:30 TZ -5.0 hours
+    expectedHours        = 23;
+    expectedMinutes      = 21;
+    expectedSeconds      = 30.0;
+    expectedUTCOffset    = -5.0;
+    SpaTime stime2(expectedHours, expectedMinutes, expectedSeconds, expectedUTCOffset); // 23:21:30 TZ -5.0 hours, 28:21:30 UTC for the same date
+    stime2.getHMS(outputHours, outputMinutes, outputSeconds);
+    ASSERT_EQUALM("2a. getHMS() hours differ", expectedHours, outputHours);
+    ASSERT_EQUALM("2b. getHMS() minutes differ", expectedMinutes, outputMinutes);
+    ASSERT_EQUAL_DELTAM("2c. getHMS() seconds differ", expectedSeconds, outputSeconds, tolerance);
 
-    FAILM("not yet implemented");
+    // Tests that want the HMS in a different UTZ offset
+    // 3. Ask what stime1 is in UTC.
+    double inputUTCOffset   = 0.0;
+    expectedHours           = 2;
+    expectedMinutes         = 30;
+    expectedSeconds         = 1.5;
+    expectedUTCOffset       = -5.0;
+    expectedDayOffset       = 0;
+    stime1.getHMS(inputUTCOffset, outputHours, outputMinutes, outputSeconds, outputDayOffset);
+    ASSERT_EQUALM("3a. getHMS() hours differ", expectedHours, outputHours);
+    ASSERT_EQUALM("3b. getHMS() minutes differ", expectedMinutes, outputMinutes);
+    ASSERT_EQUAL_DELTAM("3c. getHMS() seconds differ", expectedSeconds, outputSeconds, tolerance);
+    ASSERT_EQUALM("3d. getHMS() day offset differs", expectedDayOffset, outputDayOffset);
+
+    // 4. The same, but from the perspective of UTC -5.0 hours, so the day offset should be -1
+    inputUTCOffset = -5.0;
+    expectedHours  = 21;
+    expectedDayOffset = -1;
+    stime1.getHMS(inputUTCOffset, outputHours, outputMinutes, outputSeconds, outputDayOffset);
+    ASSERT_EQUALM("4a. getHMS() hours differ", expectedHours, outputHours);
+    ASSERT_EQUALM("4b. getHMS() minutes differ", expectedMinutes, outputMinutes);
+    ASSERT_EQUAL_DELTAM("4c. getHMS() seconds differ", expectedSeconds, outputSeconds, tolerance);
+    ASSERT_EQUALM("4d. getHMS() day offset differs", expectedDayOffset, outputDayOffset);
+
+    // 5. Using stime2, assessed at UTC, so the time is 4:21:30 AM the next day (day offset +1)
+    inputUTCOffset       = 0.0;
+    expectedHours        = 4;
+    expectedMinutes      = 21;
+    expectedSeconds      = 30.0;
+    expectedDayOffset    = 1;
+    stime2.getHMS(inputUTCOffset, outputHours, outputMinutes, outputSeconds, outputDayOffset);
+    ASSERT_EQUALM("5a. getHMS() hours differ", expectedHours, outputHours);
+    ASSERT_EQUALM("5b. getHMS() minutes differ", expectedMinutes, outputMinutes);
+    ASSERT_EQUAL_DELTAM("5c. getHMS() seconds differ", expectedSeconds, outputSeconds, tolerance);
+    ASSERT_EQUALM("5d. getHMS() day offset differs", expectedDayOffset, outputDayOffset);
     return;
 }
 
 void SpaTime_TestClass::testGetDecimalHoursUTC()
 {   
-    // Test decimal hours into  H:M:S 
+    // Test decimal hours into a day from UT midnight.
     const double tolerance = 1.0e-8;
 
-    SpaTime stime1(6, 30, 0, 4.0);   // 06:30:00 TZ +4.0 hours = 02:30:00 UTC
+    // Tests that use the SpaTime instance's own UTZ offset
+    SpaTime stime1(6, 30, 0, 4.0);                  // 06:30:00 TZ +4.0 hours = 02:30:00 UTC
     double expected_dhours1 = 6.5 - 4.0;
     ASSERT_EQUAL_DELTAM("1. Expected decimal hours from UTC mismatch for 06:30:00 TZ +4.0 hours",
         expected_dhours1,
         stime1.getDecimalHoursUTC(),
         tolerance);
 
-    SpaTime stime2(23, 21, 30, -5.0);   // 23:21:30 TZ -5.0 hours
-        double expected_dhours2 = 23.35833333 + 5.0 -24.0;
-        ASSERT_EQUAL_DELTAM("2. Expected decimal hours from UTC mismatch for 23:21:30 TZ -5.0 hours",
-            expected_dhours2,
-            stime2.getDecimalHoursUTC(),
-            tolerance);
+    SpaTime stime2(23, 21, 30, -5.0);               // 23:21:30 TZ -5.0 hours
+    double expected_dhours2 = 23.35833333 + 5.0;    // getDecimalHoursUTC does not apply 24 hr modulus
+    ASSERT_EQUAL_DELTAM("2. Expected decimal hours from UTC mismatch for 23:21:30 TZ -5.0 hours",
+        expected_dhours2,
+        stime2.getDecimalHoursUTC(),
+        tolerance);
     return;
 }
 

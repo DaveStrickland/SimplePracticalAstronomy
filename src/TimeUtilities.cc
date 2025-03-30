@@ -259,6 +259,86 @@ void calculateHoursMinutesAndSeconds(double aDecimalHours,
     return;
 }
 
+bool isGregorianCalendar(int aYear,
+    int aMonth,
+    int aDay)
+{
+    // Is date >= 1582-10-15 (i.e. Gregorian calendar)?
+    bool isGregorian = true;
+    if (aYear > 1582)
+    {
+        isGregorian = true;
+    }
+    else if (aYear < 1582 )
+    {
+        isGregorian = false;
+    }
+    else    // In the year 1582 ...
+    {
+        if (aMonth>10)
+        {
+            isGregorian = true;
+        }
+        else if ( aMonth < 10)
+        {
+            isGregorian = false;
+        }
+        else    // October
+        {
+            if (aDay < 15)
+            {
+                isGregorian = false;
+            }
+            else
+            {
+                isGregorian = true;
+            }
+        }
+    }
+    return isGregorian;    
+}
+
+double calculateJulianDayNumber(int aYear,
+    int aMonth,
+    int aDay)
+{
+    // Is date >= 1582-10-15 (i.e. Gregorian calendar)?
+    // Do this first as we mess with the year/month...
+    bool isGregorian = isGregorianCalendar(aYear, aMonth, aDay);
+
+    if (aMonth < MAR)
+    {
+        aYear  -= 1;
+        aMonth +=12;
+    }
+
+    int b_const = 0;
+    if (isGregorian)
+    {
+        const int CENTURY = 100;
+        int a_const = int(aYear / CENTURY);
+        b_const = 2 - a_const + int(a_const / 4); // Why 4?
+    }
+
+    const double MYSTERIOUS_CONSTANT_1 = 0.75;
+    double c_tmp = SPA_DAYS_IN_JULIAN_YEAR * aYear;
+    int c_const = 0;
+    if (aYear < 0)
+    {
+        c_const = int(c_tmp - MYSTERIOUS_CONSTANT_1);
+    }
+    else
+    {
+        c_const = int(c_tmp);
+    }
+
+    int d_const = int(SPA_AVG_DAYS_PER_MONTH * (aMonth + 1));
+
+    const double BASE_JD = 1720994.5; // where does this come from?
+    double jd = double(b_const + c_const + d_const + aDay) + BASE_JD;
+    return jd;
+}
+
 std::ostream& operator<<(std::ostream& os, const WeekDays& aWeekDay)
 {
     // Simple but ugly implementation.

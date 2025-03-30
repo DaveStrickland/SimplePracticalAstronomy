@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -179,9 +179,28 @@ void calculateHoursMinutesAndSeconds(double aDecimalHours,
                                      double& aSeconds,
                                      int& aDayOffset);
 
+/** 
+ * @brief Calculates the Julian Day number given a year, month, and day.
+ * @ingroup group_time
+ * 
+ * @note The user must call convertBCE_Year() on the year if it represents
+ *   BCE or BC.
+ * @note Assumes dates earlier than 1582-10-15 are Julian calendar and
+ *  not Gregorian, and corrects for that. 
+ * 
+ * @param[in] aYear Year, Gregorian calendar
+ * @param[in] aMonth Month of Year
+ * @param[in] aDay Day of Month
+ * @returns Julian Day number
+ */
+double calculateJulianDayNumber(int aYear,
+                                int aMonth,
+                                int aDay);
+
 /**
- * Converts a year BC or BCE into a form usable by DateAndTime and other SPA code.
- *
+ * @brief Converts a year BC or BCE into a form usable by DateAndTime and other SPA code.
+ * @ingroup group_time
+ * 
  * Because 1 BCE (aka BC) immediately preceded the year 1 CE (aka AD), BCE/BC data
  * need special handling. See PAWYC Section 4.
  *
@@ -250,6 +269,21 @@ void integerAndFraction(double aRealNumber,
  */
 bool isLeapYear(int aYear);
 
+/**
+ * @brief Returns true the date is after the Julian to Gregorian calendar switch
+ * @ingroup group_time
+ *
+ * The Gregorian calendar applies for dates on or after October 15, 1582. 
+ *
+ * @param[in] aYear Input Year
+ * @param[in] aMonth Month of Year
+ * @param[in] aDay Day of Month
+ * @return True if the date after the Gregorian calendar switch.
+ */
+bool isGregorianCalendar(int aYear,
+                         int aMonth,
+                         int aDay);
+                         
 /**
  * Divides an integer dividend by a divisor and returns
  *  an integer quotient and remainder.

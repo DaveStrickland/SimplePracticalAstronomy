@@ -86,8 +86,8 @@ double SpaTime::getDecimalHours() const
 double SpaTime::getDecimalHoursUTC() const
 {
     double decimalHours  = _getRawDayFraction() * double(SPA_HOURS_IN_DAY);
-    decimalHours        += theUTC_OffsetHours;
-    return decimalHours;
+    decimalHours        -= theUTC_OffsetHours;  // E.g. 6.5 hours at UTC+4 is 2.5 hours UTC
+    return decimalHours;                        // This can return values outside the range [0, 24]
 }
 
 double SpaTime::_getRawDayFraction() const
@@ -109,11 +109,11 @@ void SpaTime::getHMS(int& anHours,
 }
 
 void SpaTime::getHMS(
-    const double &aUTC_OffsetHours,
-    int& anHours,
-    int& aMinutes,
+    const double &aUTC_OffsetHours, // Note this is an arbirary UTC offset, not the one of the SpaTime instance
+    int&    anHours,
+    int&    aMinutes,
     double& aSeconds,
-    int& aDayOffset
+    int&    aDayOffset    
 ) const
 {
     double decimalHours = getDecimalHoursUTC();

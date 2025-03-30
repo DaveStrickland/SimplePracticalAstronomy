@@ -30,12 +30,10 @@
 
 #include <iostream>
 #include <iomanip>
+#include "TimeDifference.h"
 
 namespace SPA
 {
-
-// Forward declarations
-class TimeDifference;
 
 /**
  * @brief A simple date class
@@ -108,6 +106,22 @@ class SpaDate
         {
             return theYear;
         }
+
+        /**
+         * @brief Calculates the day number (i.e. day number within the year).
+         *
+         * This corresponds to Routine R1 of Section 3 of PAWYC.
+         *
+         * @note January 1st of any year is day number 1. An artificial day number zero
+         *   is often used as an epoch, e.g. 1990 January 0.0 is technically one
+         *   day before 1990 January 1, in other words the last day of the previous
+         *   year.
+         *
+         * @limitations Lacks error handling and input sanity checking.
+         *
+         * @return Day number within the year.
+         */
+        int getDayNumber() const;
 
         /**
          * Sets the day
@@ -223,6 +237,17 @@ inline bool operator>=(const SpaDate& aLHS,
 {
     return !operator<(aLHS, aRHS);
 }
+
+/**
+ * @brief Difference operator SpaDate.
+ * @ingroup group_time
+ *
+ * @param[in] aLHS_Date First input SpaDate instance.
+ * @param[in] aRHS_Date Second input SpaDate instance.
+ * @return TimeDifference equal to aLHS_Date - aRHS_Date
+ */
+
+TimeDifference operator-(const SpaDate& aLHS_Date, const SpaDate& aRHS_Date);
 
 } /* namespace SPA */
 

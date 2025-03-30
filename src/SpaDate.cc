@@ -28,6 +28,7 @@
 #include "SpaDate.h"
 #include "SpaTimeConstants.h"
 #include "TimeDifference.h"
+#include "TimeUtilities.h"
 
 namespace SPA
 {
@@ -59,6 +60,11 @@ void SpaDate::setMonth(int aMonth)
 void SpaDate::setYear(int aYear)
 {
     theYear = aYear;
+}
+
+int SpaDate::getDayNumber() const
+{
+    return TIME_UTIL::calculateDayNumber(theYear, theMonth, theDay);
 }
 
 bool operator==(const SpaDate& aLHS,
@@ -122,7 +128,11 @@ bool operator<(const SpaDate& aLHS,
 
 TimeDifference operator-(const SpaDate& aLHS_Date, const SpaDate& aRHS_Date)
 {
-    std::cerr << "error, operator- not yet implemented" << std::endl;
+    int year_a          = aLHS_Date.getYear();
+
+    int year_b          = aRHS_Date.getYear();
+   
+
     return TimeDifference(0);
 }
 

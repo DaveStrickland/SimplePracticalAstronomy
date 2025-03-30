@@ -68,43 +68,11 @@ JulianDate::JulianDate(const SPA::DateAndTime& aDateAndTime)
 double JulianDate::convertDateAndTimeToJulianDate(const SPA::DateAndTime& aDateAndTime)
 {
     double jd = 0;
-    DateAndTime dateAndTime(aDateAndTime); // need a modifiable copy
-
-    // Is date >= 1582-10-15 (i.e. Gregorian calendar)?
-    // Do this first as we mess with the year/month...
-    DateAndTime gregorian(1582, 10, 15, 0, 0, 0, 0);
-    bool isGregorian = dateAndTime > gregorian;
-
-    if (dateAndTime.getMonth() < MAR)
-    {
-        dateAndTime.setYear(dateAndTime.getYear() - 1);
-        dateAndTime.setMonth(dateAndTime.getMonth() + 12);
-    }
-
-    int b_const = 0;
-    if (isGregorian)
-    {
-        const int CENTURY = 100;
-        int a_const = int(dateAndTime.getYear() / CENTURY);
-        b_const = 2 - a_const + int(a_const / 4); // Why 4?
-    }
-
-    const double MYSTERIOUS_CONSTANT_1 = 0.75;
-    double c_tmp = SPA_DAYS_IN_JULIAN_YEAR * dateAndTime.getYear();
-    int c_const = 0;
-    if (dateAndTime.getYear() < 0)
-    {
-        c_const = int(c_tmp - MYSTERIOUS_CONSTANT_1);
-    }
-    else
-    {
-        c_const = int(c_tmp);
-    }
-
-    int d_const = int(SPA_AVG_DAYS_PER_MONTH * (dateAndTime.getMonth() + 1));
-
-    const double BASE_JD = 1720994.5; // where does this come from?
-    jd = double(b_const + c_const + d_const + dateAndTime.getDay()) + dateAndTime.getDayFraction() + BASE_JD;
+    double dayFraction = aDateAndTime.getDayFraction();
+    jd = TIME_UTIL::calculateJulianDayNumber(aDateAndTime.getYear(),
+                                             aDateAndTime.getMonth(), 
+                                             aDateAndTime.getDay());
+    jd += dayFraction;
     return jd;
 }
 
