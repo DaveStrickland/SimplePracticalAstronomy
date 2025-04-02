@@ -238,7 +238,9 @@ void JulianDate_TestClass::testGetModifiedJulianDate()
 
 void JulianDate_TestClass::testGetDateAndTime()
 {
-    double jdTolerance = 1.0e-4; // tolerance in fractional days
+    double jdTolerance = 1.0e-8;        // tolerance in fractional days
+    double secondsTolerance = 5.0e-5;   // 50 ms, see JulianDate::getDateAndTime()
+    std::ostringstream ss;
 
     /*
      * From https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl
@@ -260,7 +262,6 @@ void JulianDate_TestClass::testGetDateAndTime()
     TimeDifference td = jd - JulianDate(outputDate);
     if ( std::fabs(td.getDecimalDayDifference()) > jdTolerance)
     {
-        std::ostringstream ss;
         ss << "1b. Conversion from JD to DateAndTime incorrect: ";
         ss << " Input date=" << date
            << ", Output date=" << outputDate
@@ -268,6 +269,116 @@ void JulianDate_TestClass::testGetDateAndTime()
            << " days, which exceeds test tolerance=" << jdTolerance;
         FAILM(ss.str());
     }
+
+    // Alternate tests: iterate over a set of date and times,
+    // convert to Julian Data, then convert back into date and time.
+    // The date and time should be the same as those input.
+    const int NUM_TESTS = 6;
+    std::array<DateAndTime, NUM_TESTS> dtArray= {
+        DateAndTime(1500, 6, 18, 12, 23, 33.5, -5.0), 
+        DateAndTime(1605, 11, 5, 21, 30, 5.0, 0.0),
+        DateAndTime(1605, 11, 5, 23, 30, 5.0, 2.0),
+        DateAndTime(1605, 11, 5, 19, 30, 5.0, -2.0),
+        DateAndTime(1969, 7, 21, 20, 17, 0.0, 0.0),
+        DateAndTime(2021, 12, 25, 12, 20, 0.0, 0.0)};
+    for (int idx = 0; idx < NUM_TESTS; ++idx)
+    {
+        double utcOffset = dtArray[idx].getUtcOffsetHours();
+        bool isUTC       = utcOffset == 0;
+
+        JulianDate  jd(dtArray[idx]);
+        DateAndTime outputDateTime = jd.getDateAndTime();   // NB: Always returns UTC!
+        std::string errMsg;
+        if ( ! _checkDateAndTimeValues(dtArray.at(idx),
+                                     outputDateTime,
+                                     errMsg) )
+        {
+            FAILM(errMsg);
+        }
+    }
+    return;
+}
+bool JulianDate_TestClass::_checkDateAndTimeValues(
+    const SPA::DateAndTime& aDateAndTimeA,
+    const SPA::DateAndTime& aDateAndTimeB,
+    std::string&            anErrorMessage) const
+{
+    bool passes = true;
+    double secondsTolerance = 5.0e-5;                      // 50 ms, see JulianDate::getDateAndTime()
+    double jdTolerance = secondsTolerance / double(86400); // tolerance in fractional days
+    std::ostringstream ss;
+
+    ss << "DateAndTime do NOT match expectation:";
+    if (aDateAndTimeA.getYear() != aDateAndTimeB.getYear())
+    {
+        ss << " yearA=" << aDateAndTimeA.getYear() << " yearB=" << aDateAndTimeB.getYear();
+        passes = false;
+    }
+
+    if (aDateAndTimeA.getMonth() != aDateAndTimeB.getMonth())
+    {
+        ss << " monthA=" << aDateAndTimeA.getMonth() << " monthB=" << aDateAndTimeB.getMonth();
+        passes = false;
+    }
+
+    // Check if UTC offsets match. If they do we can check days, hours, minutes, and seconds separately.
+    // Otherwise, we compare the day + day fraction w.r.t UTC, because in terms of UTC the
+    // time might be next/previous day.
+    double utcOffsetDiff = std::fabs(aDateAndTimeA.getUtcOffsetHours() - aDateAndTimeB.getUtcOffsetHours());
+    if (utcOffsetDiff > jdTolerance)
+    {
+        double daysIntoMonthA = (double)aDateAndTimeA.getDay() + aDateAndTimeA.getDayFraction();
+        double daysIntoMonthB = (double)aDateAndTimeB.getDay() + aDateAndTimeB.getDayFraction();;
+
+        double dayFractionDiff = std::fabs(daysIntoMonthA - daysIntoMonthB);
+        if ( dayFractionDiff > jdTolerance)
+        {
+            ss << " daysIntoMonthA="                << std::fixed << std::setprecision(6)
+               << aDateAndTimeA.getDayFraction()    << " daysIntoMonthAB" << aDateAndTimeB.getDayFraction()
+               << " difference=" << dayFractionDiff;
+            passes = false;
+        }
+    }
+    else
+    {
+        if (aDateAndTimeA.getDay() != aDateAndTimeB.getDay())
+        {
+            ss << " dayA=" << aDateAndTimeA.getDay() << " dayB=" << aDateAndTimeB.getDay();
+            passes = false;
+        }
+    
+        if (aDateAndTimeA.getHours() != aDateAndTimeB.getHours())
+        {
+            ss << " hoursA=" << aDateAndTimeA.getHours() << " hoursB=" << aDateAndTimeB.getHours();
+            passes = false;
+        }
+
+        if (aDateAndTimeA.getMinutes() != aDateAndTimeB.getMinutes())
+        {
+            ss << " minutesA=" << aDateAndTimeA.getMinutes() << " minutesB=" << aDateAndTimeB.getMinutes();
+            passes = false;
+        }
+
+        double secondsDiff = std::fabs(aDateAndTimeA.getSeconds() - aDateAndTimeB.getSeconds());
+        if (secondsDiff > secondsTolerance)
+        {
+            ss << " secondsA="                  << std::fixed << std::setprecision(6)
+               << aDateAndTimeA.getSeconds()    << " secondsB=" << aDateAndTimeB.getSeconds()
+               << " difference=" << secondsDiff;
+            passes = false;
+        }
+    } // end if UTC offsets match
+
+    // Only set output string if there is a problem
+    if (!passes)
+    {
+        anErrorMessage = ss.str();
+    }
+    else
+    {
+        anErrorMessage.clear();
+    }
+    return passes;
 }
 
 

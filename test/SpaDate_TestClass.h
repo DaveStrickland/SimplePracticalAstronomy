@@ -82,6 +82,11 @@ class SpaDate_TestClass
         void testDifferenceOperator();
 
         /**
+         * Tests getDayNumber()
+         */
+        void testGetDayNumber();
+
+        /**
          * Adds all methods that run this class's unit tests to the given cute suite.
          *
          * @param[in,out] aSuite The cute suite that the tests will be added to.
@@ -93,6 +98,7 @@ class SpaDate_TestClass
             aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testGettersAndSetters);
             aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testOstreamOperator);
             aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testDifferenceOperator);
+            aSuite += CUTE_SMEMFUN(SpaDate_TestClass, testGetDayNumber);
         }
     private:
         /**

@@ -168,6 +168,10 @@ class JulianDate
          * that section is that this routine returns a full DateAndTime
          * object with hours, minutes and seconds, rather than
          * a decimal day fraction.
+         * 
+         * @note Storing the Julian Date using double precision implies a
+         *   loss of precision in the recovered seconds at the tens of
+         *   millisonds level.
          *
          * @todo It is not clear if this
          *   returns a Julian calendar DateAndTime for JulianDate

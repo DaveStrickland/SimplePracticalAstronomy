@@ -128,12 +128,13 @@ bool operator<(const SpaDate& aLHS,
 
 TimeDifference operator-(const SpaDate& aLHS_Date, const SpaDate& aRHS_Date)
 {
-    int year_a          = aLHS_Date.getYear();
-
-    int year_b          = aRHS_Date.getYear();
-   
-
-    return TimeDifference(0);
+    double jd_lhs = TIME_UTIL::calculateJulianDayNumber(aLHS_Date.getYear(),
+                                                        aLHS_Date.getMonth(), 
+                                                        aLHS_Date.getDay());
+    double jd_rhs = TIME_UTIL::calculateJulianDayNumber(aRHS_Date.getYear(),
+                                                        aRHS_Date.getMonth(), 
+                                                        aRHS_Date.getDay());
+    return TimeDifference(jd_lhs - jd_rhs);
 }
 
 } /* namespace SPA */

@@ -203,12 +203,12 @@ std::ostream& operator<<(std::ostream& os,
                          const SPA::DateAndTime& aDateAndTime)
 {
     os << "DateAndTime{";
-    os << " theYear=" << aDateAndTime.getYear()
-       << " theMonth=" <<  aDateAndTime.getMonth()
-       << " theDay=" <<  aDateAndTime.getDay()
-       << " theHours=" <<  aDateAndTime.getHours()
-       << " theMinutes=" <<  aDateAndTime.getMinutes()
-       << " theSeconds=" << std::fixed << std::setprecision(6) << aDateAndTime.getSeconds()
+    os << " theYear="       << aDateAndTime.getYear()
+       << " theMonth="      << aDateAndTime.getMonth()
+       << " theDay="        << aDateAndTime.getDay()
+       << " theHours="      << aDateAndTime.getHours()
+       << " theMinutes="    << aDateAndTime.getMinutes()
+       << " theSeconds="    << std::fixed << std::setprecision(6) << aDateAndTime.getSeconds()
        << " theUTC_OffsetHours=" << std::setprecision(4) << aDateAndTime.getUtcOffsetHours();
     os << " }";
     return os;

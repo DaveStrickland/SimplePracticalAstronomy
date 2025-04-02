@@ -574,6 +574,73 @@ void TimeUtilities_TestClass::testTimeEnumerationOstream()
     return;
 }
 
+void TimeUtilities_TestClass::testIsGregorianCalendar()
+{
+    std::ostringstream ss;
+
+    const int NUM_TESTS = 6;
+    std::array<int, NUM_TESTS> iYears = {{1583, 1582, 1582, 1582, 1582, 1581}};
+    std::array<int, NUM_TESTS> iMonth = {{2,    11,   10,   10,   9,    11}};
+    std::array<int, NUM_TESTS> iDay   = {{17,   2,    15,   14,   21,   16}};
+    std::array<bool, NUM_TESTS> expectedIsGregorian = {{true, true, true, false, false, false}};
+    for (int iTest = 0; iTest < NUM_TESTS; iTest++)
+    {
+        int year  = iYears[iTest];
+        int month = iMonth[iTest];
+        int day   = iDay[iTest];
+        bool expected = expectedIsGregorian[iTest];
+
+        bool isGregorian = SPA::TIME_UTIL::isGregorianCalendar(year, month, day);
+        ss << "  Test " << iTest << " year=" << year
+           << " month=" << month
+           << " day=" << day
+           << " expectedIsGregorian=" << expected
+           << ", got isGregorian=" << isGregorian;
+        if (isGregorian !=  expected)
+        {
+            FAILM(ss.str());
+        }
+        ss.str(std::string()); // clear ss
+    }
+    return;
+}
+
+void TimeUtilities_TestClass::testCalculateJulianDayNumber()
+{
+    std::ostringstream ss;
+    const double tolerance = 1.0e-8;
+    // Test values may be obtained from https://aa.usno.navy.mil/data/JulianDate
+
+    const int NUM_TESTS = 6;
+    std::array<int, NUM_TESTS> iYears = {{-4712, 9999, 2000, 1900, 2000,    0}};
+    std::array<int, NUM_TESTS> iMonth = {{1,        6,   1,     1,    3,    2}};
+    std::array<int, NUM_TESTS> iDay   = {{2,       18,    1,    1,    1,   28}};
+    std::array<double, NUM_TESTS> expectedJulianDay = {{0.5, 
+                                                        5373287.5, 
+                                                        2451544.5, 
+                                                        2415020.5, 
+                                                        2451604.5, 
+                                                        1721115.5}};
+    for (int iTest = 0; iTest < NUM_TESTS; iTest++)
+    {
+        int year  = iYears[iTest];
+        int month = iMonth[iTest];
+        int day   = iDay[iTest];
+        double expectedJD = expectedJulianDay[iTest];
+
+        double outputJD = SPA::TIME_UTIL::calculateJulianDayNumber(year, month, day);
+        ss << "  Test " << iTest << " year=" << year
+           << " month=" << month
+           << " day=" << day
+           << " expectedJulianDay=" << expectedJD
+           << ", got outputJulianDay=" << outputJD;
+        std::string eMessage(ss.str());
+        ss.str(std::string()); // clear ss
+        ASSERT_EQUAL_DELTAM(eMessage, expectedJD, outputJD, tolerance);
+    }
+    return;
+}
+
 
 } /* namespace TEST */
 } /* namespace SPA */

@@ -104,6 +104,16 @@ class TimeUtilities_TestClass
         void testTimeEnumerationOstream();
 
         /**
+         * Tests the isGregorianCalendar function.
+         */
+        void testIsGregorianCalendar();
+
+        /**
+         * Tests the calculateJulianDayNumber function.
+         */
+        void testCalculateJulianDayNumber();
+
+        /**
          * @brief Utility function that returns true if two
          *   times, A and B, have matching hours, minutes, seconds,
          *   and day offset.
@@ -150,6 +160,8 @@ class TimeUtilities_TestClass
             aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testCalculateDecimalHours);
             aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testCalculateHoursMinutesAndSeconds);
             aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testTimeEnumerationOstream);
+            aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testIsGregorianCalendar);
+            aSuite += CUTE_SMEMFUN(TimeUtilities_TestClass, testCalculateJulianDayNumber);
         }
     private:
 };

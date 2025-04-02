@@ -117,7 +117,7 @@ DateAndTime JulianDate::getDateAndTime() const
      * with SPA_AVG_DAYS_PER_MONTH on computers with ieee754 math.
      */
 
-    // onstants of unknown origin used in this routine.
+    // Constants of unknown origin used in this routine.
     const double constantC = 1524;
     const double constantD = 122.1;
     const double constantMonth = 13.5;
@@ -182,6 +182,7 @@ DateAndTime JulianDate::getDateAndTime() const
                                                minutes,
                                                seconds,
                                                day_offset);
+    days += day_offset;
 
     int month;
     if (valueG < constantMonth)

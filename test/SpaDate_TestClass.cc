@@ -235,9 +235,81 @@ void SpaDate_TestClass::testOstreamOperator()
     return;
 }
 
+void SpaDate_TestClass::testGetDayNumber()
+{
+    std::ostringstream ss;
+
+    // Additional test cases can be constructed using the unix cal command, e.g.
+    // `cal 02 2024` shows the calendar for February 2024, and the ordinal day
+    // numbers can be shown using `cal -j 02 2024`
+
+    const int NUM_TESTS = 4;
+    std::array<int, NUM_TESTS> iYears = {{1985, 2018, 2024, 2024}};
+    std::array<int, NUM_TESTS> iMonth = {{2,    9,    2,    3}};
+    std::array<int, NUM_TESTS> iDay   = {{17,   2,    29,   3}};
+    std::array<int, NUM_TESTS> expectedDayNumber = {{48, 245, 60, 63}};
+    for (int iTest = 0; iTest < NUM_TESTS; iTest++)
+    {
+        int year  = iYears[iTest];
+        int month = iMonth[iTest];
+        int day   = iDay[iTest];
+        SpaDate sdate(year, month, day);
+        int expected = expectedDayNumber[iTest];
+
+        int oDayNum = sdate.getDayNumber();
+        ss << "  Test " << iTest << " year=" << year
+           << " month=" << month
+           << " day=" << day
+           << " expectedDayNumber=" << expected
+           << ", got dayNumber=" << oDayNum;
+        if (oDayNum !=  expected)
+        {
+            FAILM(ss.str());
+        }
+        ss.str(std::string()); // clear ss
+    }
+    return;
+}
+
 void SpaDate_TestClass::testDifferenceOperator()
 {
-    FAILM("not yet implemented");
+    const double tolerance = 1.0e-8;
+    const int NUM_TESTS = 4;
+    std::ostringstream ss;
+
+    // Julian date for a given date can be obtained from https://aa.usno.navy.mil/data/JulianDate
+    SpaDate sdate1(2024, 6, 18);
+    double trueJD1 = 2460479.5;
+ 
+    std::array<int, NUM_TESTS> iYears = {{2023, 2024, 2024, 2027}};
+    std::array<int, NUM_TESTS> iMonth = {{6,    5,    6,    6}};
+    std::array<int, NUM_TESTS> iDay   = {{18,   18,   18,   25}};
+    std::array<double, NUM_TESTS> iJD = {{2460113.5, 
+                                          2460448.5, 
+                                          2460479.5, 
+                                          2461581.5}};
+    for (int iTest = 0; iTest < NUM_TESTS; iTest++)
+    {
+        int year  = iYears[iTest];
+        int month = iMonth[iTest];
+        int day   = iDay[iTest];
+        SpaDate sdate2(year, month, day);
+        int expected = trueJD1 - iJD[iTest];
+
+        TimeDifference tdiff = sdate1 - sdate2;
+
+        ss << "  Test " << iTest << " sdate1=" << sdate1
+           << " minus sdate2=" << sdate2
+           << " should be " << expected
+           << " days, but got " << expected
+           << ", got dayNumber=" << tdiff.getDecimalDayDifference();
+        std::string eMessage(ss.str());
+        ss.str(std::string()); // clear ss
+        ASSERT_EQUAL_DELTAM(eMessage,
+            expected,
+            tdiff.getDecimalDayDifference(),
+            tolerance);
+    }
     return;
 }
 

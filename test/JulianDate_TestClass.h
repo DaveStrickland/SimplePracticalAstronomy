@@ -29,6 +29,7 @@
 #ifndef TEST_JULIANDATE_TESTCLASS_H_
 #define TEST_JULIANDATE_TESTCLASS_H_
 
+#include "DateAndTime.h"
 #include <cute/cute.h>
 
 namespace SPA
@@ -104,6 +105,29 @@ class JulianDate_TestClass
           * Number of digits to print numbers to.
           */
          int theDigitsOfPrecision;
+
+        /**
+         * @brief Compares the contents of two DateAndTime objects accounting
+         *   for potentially different UTC offsets
+         *
+         * @limitations This technically has two outputs, a bool and a string
+         *  containing the error message only if the bool is  false. If we used
+         *  C++17 we could use std::optional (and make the bool true if an error
+         *  occurs).
+         *
+         *
+         * @param[in] aDateAndTimeA Input DataAndTime object A to be analyzed.
+         * @param[in] aDateAndTimeB Input DataAndTime object B to be analyzed.
+         * @param[out] anErrorMessage String listing the differences only
+         *   if the DateAndTime object does not match the expected values.
+         *   If no problems are found this string is cleared of any existing
+         *   contents,
+         * @return True if the input DateAndTime instances match within tolerance.
+         */
+        bool _checkDateAndTimeValues(
+            const SPA::DateAndTime& aDateAndTimeA,
+            const SPA::DateAndTime& aDateAndTimeB,
+            std::string&            anErrorMessage) const;
 
 };
 

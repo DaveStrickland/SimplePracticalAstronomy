@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 David Strickland, <dave.strickland@gmail.com>
+ * Copyright (C) 2018-2025 David Strickland, <dave.strickland@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -138,7 +138,8 @@ constexpr double SPA_DAYS_IN_GREGORIAN_CENTURY = SPA_DAYS_IN_GREGORIAN_YEAR * SP
 constexpr double SPA_MJD_EPOCH = 2400000.5;
 
 /**
- * @brief Last day of Julian calendar in most of Western Europe, 1582-10-14 12:00:00 UTC
+ * @brief Last day of Julian calendar in most of Western Europe, 
+ *  1582-10-14 12:00:00 UTC (gregorian) or 1582-10-04 12:00:00 (Julian)
  * @ingroup group_time
  * @source PAWYC Section 5
  * @units Decimal Julian Days since the start of the Julian Period
