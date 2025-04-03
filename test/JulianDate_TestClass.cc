@@ -239,7 +239,6 @@ void JulianDate_TestClass::testGetModifiedJulianDate()
 void JulianDate_TestClass::testGetDateAndTime()
 {
     double jdTolerance = 1.0e-8;        // tolerance in fractional days
-    double secondsTolerance = 5.0e-5;   // 50 ms, see JulianDate::getDateAndTime()
     std::ostringstream ss;
 
     /*
@@ -283,9 +282,6 @@ void JulianDate_TestClass::testGetDateAndTime()
         DateAndTime(2021, 12, 25, 12, 20, 0.0, 0.0)};
     for (int idx = 0; idx < NUM_TESTS; ++idx)
     {
-        double utcOffset = dtArray[idx].getUtcOffsetHours();
-        bool isUTC       = utcOffset == 0;
-
         JulianDate  jd(dtArray[idx]);
         DateAndTime outputDateTime = jd.getDateAndTime();   // NB: Always returns UTC!
         std::string errMsg;

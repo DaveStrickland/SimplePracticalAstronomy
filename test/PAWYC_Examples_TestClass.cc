@@ -226,7 +226,79 @@ void PAWYC_Examples_TestClass::example7_ConvertingToDecimalHours()
         stime.getDecimalHours(),
         tolerance);
 
-    // 2. Using DateTime
+    // 2. Using DateTime, this works for UTC.
+    int year    = 1985;
+    int month   = 2;
+    int day     = 17;
+    SPA::DateAndTime dtime(year, month, day, hrs, mins, secs, tzoffset);
+    ASSERT_EQUAL_DELTAM("2a. 24 x getDayFraction from DateAndTime is incorrect",
+        expected_decimal_hours,
+        (double)SPA_HOURS_IN_DAY * dtime.getDayFraction(),
+        tolerance);
+
+    return;
+}
+
+void PAWYC_Examples_TestClass::example8_ConvertingToHoursMinutesSeconds()
+{
+    int expected_day_offset   = 0;
+    double expected_decimal_hours = 18.52417;   // Precision given in PAWYC
+    double tolerance          = 1.0e-5;
+    int expected_hrs          = 18;      // SpaTime and DateTime use 24 hour clocks
+    int expected_mins         = 31;
+    double expected_secs      = 27;
+    double expected_tzoffset  = 0;       // Time zone not in example\
+
+    // 1. Using TIME_UTIL
+    int output_hrs;
+    int output_mins;
+    double output_secs;
+    int output_day_offset;
+    TIME_UTIL::calculateHoursMinutesAndSeconds(expected_decimal_hours,
+        output_hrs,
+        output_mins,
+        output_secs,
+        output_day_offset);
+    ASSERT_EQUALM("1a. Output hours from TIME_UTIL::calculateHoursMinutesAndSeconds is incorrect",
+        expected_hrs,
+        output_hrs);
+    ASSERT_EQUALM("1b. Output minutes from TIME_UTIL::calculateHoursMinutesAndSeconds is incorrect",
+        expected_mins,
+        output_hrs);    
+    ASSERT_EQUAL_DELTAM("1c. Output seconds from TIME_UTIL::calculateHoursMinutesAndSeconds is incorrect",
+        expected_secs,
+        output_secs,
+        tolerance);
+    ASSERT_EQUALM("1d. Output UTC offset from TIME_UTIL::calculateHoursMinutesAndSeconds is incorrect",
+        expected_day_offset,
+        output_day_offset);
+
+    // 2. Using SpaTime
+    SPA::SpaTime stime(expected_hrs, 
+                       expected_mins, 
+                       expected_secs, 
+                       expected_tzoffset);  // Example 7 demonstrates this produces expected_decimal_hours
+    stime.getHMS(expected_tzoffset,
+        output_hrs, 
+        output_mins, 
+        output_secs, 
+        output_day_offset);
+    ASSERT_EQUALM("2a. Output hours from SpaTime::getHMS is incorrect",
+        expected_hrs,
+        output_hrs);
+    ASSERT_EQUALM("2b. Output minutes from SpaTime::getHMS is incorrect",
+        expected_mins,
+        output_mins);    
+    ASSERT_EQUAL_DELTAM("2c. Output seconds from SpaTime::getHMS is incorrect",
+        expected_secs,
+        output_secs,
+        tolerance);
+    ASSERT_EQUALM("2d. Output UTC offset from SpaTime::getHMS is incorrect",
+        expected_day_offset,
+        output_day_offset);
+
+            
+    return;
 }
 
 } /* namespace TEST */

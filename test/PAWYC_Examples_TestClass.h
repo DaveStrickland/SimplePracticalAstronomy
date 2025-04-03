@@ -115,6 +115,13 @@ class PAWYC_Examples_TestClass
         void example7_ConvertingToDecimalHours();
 
         /**
+         * @brief Example of Section 8, converting decimal hours to hours, minutes, and seconds
+         *
+         * 18.52417 hours is 18h 31m 27s (234Hr clock)  
+         */
+        void example8_ConvertingToHoursMinutesSeconds();
+
+        /**
          * Adds all methods that run this class's unit tests to the given cute suite.
          *
          * @param[in,out] aSuite The cute suite that the tests will be added to.
@@ -127,6 +134,7 @@ class PAWYC_Examples_TestClass
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example5_JulianDateToCalendarDate);
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example6_DayOfWeek);
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example7_ConvertingToDecimalHours);
+            aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example8_ConvertingToHoursMinutesSeconds);
         }
     private:
 };
