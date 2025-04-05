@@ -242,7 +242,7 @@ void PAWYC_Examples_TestClass::example7_ConvertingToDecimalHours()
 void PAWYC_Examples_TestClass::example8_ConvertingToHoursMinutesSeconds()
 {
     int expected_day_offset   = 0;
-    double expected_decimal_hours = 18.52417;   // Precision given in PAWYC
+    double expected_decimal_hours = 18.524166667;  // 18.52417 precision given in PAWYC is only 1e-5 hours = 0.036 seconds
     double tolerance          = 1.0e-5;
     int expected_hrs          = 18;      // SpaTime and DateTime use 24 hour clocks
     int expected_mins         = 31;
@@ -264,7 +264,7 @@ void PAWYC_Examples_TestClass::example8_ConvertingToHoursMinutesSeconds()
         output_hrs);
     ASSERT_EQUALM("1b. Output minutes from TIME_UTIL::calculateHoursMinutesAndSeconds is incorrect",
         expected_mins,
-        output_hrs);    
+        output_mins);    
     ASSERT_EQUAL_DELTAM("1c. Output seconds from TIME_UTIL::calculateHoursMinutesAndSeconds is incorrect",
         expected_secs,
         output_secs,
@@ -301,5 +301,93 @@ void PAWYC_Examples_TestClass::example8_ConvertingToHoursMinutesSeconds()
     return;
 }
 
+void PAWYC_Examples_TestClass::example9_ConvertingLocalTimeToUT()
+{
+    // We skip the whole daylight savings time part of these examples,
+    // as SPA really wants the current offset from UTC.
+    int     expected_day_offset = -1;
+    double  tolerance           = 1.0e-5;
+    int     expected_hrs        = 22;      // SpaTime and DateTime use 24 hour clocks
+    int     expected_mins       = 37;
+    double  expected_secs       = 0;
+    double  requested_tzoffset  = 0;       // Time zone for UT(C)
+    int     input_hrs           = 2;
+    int     input_mins          = 37;
+    double  input_secs          = 0;
+    double  input_tzoffset      = 4.0;
+
+    int output_hrs;
+    int output_mins;
+    double output_secs;
+    int output_day_offset;
+
+    SPA::SpaTime stime(input_hrs, 
+        input_mins, 
+        input_secs, 
+        input_tzoffset);
+    stime.getHMS(requested_tzoffset,
+        output_hrs, 
+        output_mins, 
+        output_secs, 
+        output_day_offset);
+    ASSERT_EQUALM("1a. Output hours from SpaTime::getHMS is incorrect",
+        expected_hrs,
+        output_hrs);
+    ASSERT_EQUALM("1b. Output minutes from SpaTime::getHMS is incorrect",
+        expected_mins,
+        output_mins);    
+    ASSERT_EQUAL_DELTAM("1c. Output seconds from SpaTime::getHMS is incorrect",
+        expected_secs,
+        output_secs,
+        tolerance);
+    ASSERT_EQUALM("1d. Output UTC offset from SpaTime::getHMS is incorrect",
+        expected_day_offset,
+        output_day_offset);
+    return;
+}
+
+void PAWYC_Examples_TestClass::example10_ConvertingUTToLocalTime()
+{
+    // We roll the daylight savings into the final tz offset
+    int     expected_day_offset = 1;
+    double  tolerance           = 1.0e-5;
+    int     expected_hrs        = 3;      // SpaTime and DateTime use 24 hour clocks
+    int     expected_mins       = 37;
+    double  expected_secs       = 0;
+    double  requested_tzoffset  = 5;       // Time zone for UT(C)
+    int     input_hrs           = 22;
+    int     input_mins          = 37;
+    double  input_secs          = 0;
+    double  input_tzoffset      = 0.0;
+
+    int output_hrs;
+    int output_mins;
+    double output_secs;
+    int output_day_offset;
+
+    SPA::SpaTime stime(input_hrs, 
+        input_mins, 
+        input_secs, 
+        input_tzoffset);
+    stime.getHMS(requested_tzoffset,
+        output_hrs, 
+        output_mins, 
+        output_secs, 
+        output_day_offset);
+    ASSERT_EQUALM("1a. Output hours from SpaTime::getHMS is incorrect",
+        expected_hrs,
+        output_hrs);
+    ASSERT_EQUALM("1b. Output minutes from SpaTime::getHMS is incorrect",
+        expected_mins,
+        output_mins);    
+    ASSERT_EQUAL_DELTAM("1c. Output seconds from SpaTime::getHMS is incorrect",
+        expected_secs,
+        output_secs,
+        tolerance);
+    ASSERT_EQUALM("1d. Output UTC offset from SpaTime::getHMS is incorrect",
+        expected_day_offset,
+        output_day_offset);
+    return;
+}
 } /* namespace TEST */
 } /* namespace SPA */

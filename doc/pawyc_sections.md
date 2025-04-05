@@ -14,9 +14,9 @@ Section |  Title |  Type |  Implementation Status | PAWYC_Examples_TestClass Exa
 5 | Converting the Julian day number to the calendar date   | Algorithm | SPA::JulianDate::getDateAndTime() | example5_JulianDateToCalendarDate |
 6 | Finding the day of the week   | Algorithm | TIME_UTIL::calculateDayInTheWeek() | example6_DayOfWeek |
 7 | Converting hours  minutes and seconds to decimal hours   | Algorithm | SpaTime::getDecimalHours | example7_ConvertingToDecimalHours |
-8 | Converting decimal hours to hours  minutes and seconds   | Algorithm | TIME_UTIL::calculateHoursMinutesAndSeconds | TBD |
-9 | Converting the local time to UT   | Algorithm | TBD | TBD |
-10 | Converting UT to local civil time   | Algorithm | TBD | TBD |
+8 | Converting decimal hours to hours  minutes and seconds   | Algorithm | TIME_UTIL::calculateHoursMinutesAndSeconds | example8_ConvertingToHoursMinutesSeconds |
+9 | Converting the local time to UT   | Algorithm | TIME_UTIL::calculateHoursMinutesAndSeconds | example9_ConvertingLocalTimeToUT |
+10 | Converting UT to local civil time   | Algorithm | TIME_UTIL::calculateHoursMinutesAndSeconds | example10_ConvertingUTToLocalTime |
 11 | Sidereal time (ST)   | Explanatory | N/A | N/A |
 12 | Conversion of UT to GST   | Algorithm | TBD | TBD |
 13 | Conversion of GST to UT   | Algorithm | TBD | TBD |

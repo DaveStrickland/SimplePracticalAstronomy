@@ -122,6 +122,21 @@ class PAWYC_Examples_TestClass
         void example8_ConvertingToHoursMinutesSeconds();
 
         /**
+         * @brief Example of Section 9, converting local time to UT(C)
+         *
+         * 02h 37m in a timezone UTC+4 hours converts to 22h 37 UTC (the previous day)
+         */
+        void example9_ConvertingLocalTimeToUT();
+
+        /**
+         * @brief Example of Section 10, converting UT(C) to local civil time
+         *
+         * 22h 37 UTC in a timezone that is offset from UTC by 5 hours (4 geographically
+         * plus 1 day light savings) is 3h 37m the next day.
+         */
+        void example10_ConvertingUTToLocalTime();
+
+        /**
          * Adds all methods that run this class's unit tests to the given cute suite.
          *
          * @param[in,out] aSuite The cute suite that the tests will be added to.
@@ -135,6 +150,8 @@ class PAWYC_Examples_TestClass
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example6_DayOfWeek);
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example7_ConvertingToDecimalHours);
             aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example8_ConvertingToHoursMinutesSeconds);
+            aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example9_ConvertingLocalTimeToUT);
+            aSuite += CUTE_SMEMFUN(PAWYC_Examples_TestClass, example10_ConvertingUTToLocalTime);
         }
     private:
 };
